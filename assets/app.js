@@ -9,12 +9,12 @@
   const header = `
     <div class="topbar"><div class="container"><span><strong>Dossier de développement</strong> · Deauville / Sherbrooke</span><span>Données de travail · mise à jour ${window.DOMAIN_DATA?.updated || ''}</span></div></div>
     <header class="site-header"><div class="container nav-wrap">
-      <a class="brand" href="${prefix}index.html"><img src="${prefix}assets/logo.svg" alt="Logo Domaine des Villas du Lac"><div class="brand-title">DOMAINE <span>DES VILLAS DU LAC</span></div></a>
+      <a class="brand" href="${prefix}index.html"><img src="${prefix}assets/domaine-logo.webp" alt="Logo Domaine des Villas du Lac"><div class="brand-title">DOMAINE <span>DES VILLAS DU LAC</span></div></a>
       <button class="menu-btn" aria-label="Ouvrir le menu">Menu</button>
       <nav class="nav">${nav.map(([href,label])=>`<a class="${activeFile===href?'active':''}" href="${prefix}${href}">${label}</a>`).join('')}<a class="cta" href="${prefix}terrains.html#inventaire">Inventaire</a></nav>
     </div></header>`;
   const footer = `<footer class="footer"><div class="container"><div class="footer-grid">
-    <div><a class="brand" href="${prefix}index.html"><img src="${prefix}assets/logo.svg" alt=""><div class="brand-title">DOMAINE <span>DES VILLAS DU LAC</span></div></a><p>Plateforme de travail pour structurer la décision de vente ou de développement des terrains de la rue des Villas.</p></div>
+    <div><a class="brand" href="${prefix}index.html"><img src="${prefix}assets/domaine-logo.webp" alt="Logo Domaine des Villas du Lac"><div class="brand-title">DOMAINE <span>DES VILLAS DU LAC</span></div></a><p>Plateforme de travail pour structurer la décision de vente ou de développement des terrains de la rue des Villas.</p></div>
     <div><h4>Projet</h4><a href="${prefix}terrains.html">Terrains</a><a href="${prefix}routes.html">Construction des routes</a><a href="${prefix}finances.html">Scénarios financiers</a></div>
     <div><h4>Diligence</h4><a href="${prefix}documents.html">Documents</a><a href="${prefix}documents.html#sources">Sources</a><a href="${prefix}documents.html#actions">Actions à valider</a></div>
     <div><h4>Statut</h4><p>Données préliminaires. Les titres, superficies, droits de passage, contraintes environnementales et permis doivent être confirmés avant une transaction ou des travaux.</p></div>
