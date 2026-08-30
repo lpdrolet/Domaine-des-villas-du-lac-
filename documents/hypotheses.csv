@@ -1,0 +1,13 @@
+hypothese,valeur,unite,statut
+Prix de vente brut tel quel,1.50,$/pi2,Interne
+Longueur phase A,522.606,m,Officiel
+Longueur réseau principal,854.295,m,Officiel
+Lots après développement phase A,15,lots,À valider
+Lots après développement total,20,lots,À valider
+Prix moyen par lot développé,250000,$/lot,Illustratif
+Frais de vente,5,%,Illustratif
+Études ingénierie environnement,200000,$,Illustratif
+Contingence travaux,15,%,Illustratif
+Coût direct du chemin,2500,$/m,Illustratif
+Durée,3,années,Illustratif
+Coût annuel du capital,8,%/an,Illustratif
