@@ -16,7 +16,9 @@ window.DOMAIN_DATA = {
     asphalt: false,
     studies: 100000,
     contingency: 0.15,
-    developedLotPrice: 250000,
+    developedLotPrice: 185000,
+    externalAcquisitionCost: 500000,
+    externalLotsToAcquire: 8,
     saleFees: 0.05,
     capitalRate: 0.08,
     durationYears: 3
