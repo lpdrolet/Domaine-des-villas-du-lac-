@@ -1,0 +1,32 @@
+window.DOMAIN_DATA = {
+  updated: "30 août 2026",
+  project: {
+    name: "Domaine des Villas du Lac",
+    location: "Rue des Villas, secteur Deauville, Sherbrooke (Québec)",
+    zoning: "PRA1589",
+    rawPricePerSqft: 1.50,
+    roadPhaseA: 522.606,
+    roadTotal: 854.295,
+    roadCostPerM: 2500,
+    studies: 200000,
+    contingency: 0.15,
+    developedLotPrice: 250000,
+    saleFees: 0.05,
+    capitalRate: 0.08,
+    durationYears: 3
+  },
+  lots: [
+    {id:"1800385",label:"1 800 385",ownerRole:"DESROCHERS VIVIANE",group:"Viviane Desrochers",holder:"Viviane Desrochers",sqm:4369.5,sqft:47032.9066,frontage:47,assessment:75700,roleSqft:1.6095,status:"Sous réserve",category:"viviane",address:"Rue projetée",note:"Lot riverain d’une rue projetée. Constructibilité à confirmer."},
+    {id:"1800412",label:"1 800 412",ownerRole:"DESROCHERS VIVIANE",group:"Viviane Desrochers",holder:"Viviane Desrochers",sqm:3065.8,sqft:32999.9966,frontage:45.72,assessment:33900,roleSqft:1.0273,status:"Sous réserve",category:"viviane",address:"Rue projetée",note:"Lot riverain d’une rue projetée. Constructibilité à confirmer."},
+    {id:"1800411",label:"1 800 411",ownerRole:"SOCIETE VILLA DEAUVILLE SENC",group:"Société Villa Deauville",holder:"Groupe Viviane — information interne à valider juridiquement",sqm:3065.8,sqft:32999.9966,frontage:45.72,assessment:33900,roleSqft:1.0273,status:"Sous réserve",category:"societe",address:"Rue projetée",note:"Au rôle: Société Villa Deauville S.E.N.C. Attribution interne indiquée au groupe Viviane; validation juridique requise."},
+    {id:"1800413",label:"1 800 413",ownerRole:"SOCIETE VILLA DEAUVILLE SENC",group:"Société Villa Deauville",holder:"Groupe Viviane — information interne à valider juridiquement",sqm:3241,sqft:34885.8337,frontage:136.08,assessment:68900,roleSqft:1.9750,status:"Sous réserve",category:"societe",address:"Rue projetée",note:"Au rôle: Société Villa Deauville S.E.N.C. Attribution interne indiquée au groupe Viviane; validation juridique requise."},
+    {id:"1800414",label:"1 800 414",ownerRole:"SOCIETE VILLA DEAUVILLE SENC",group:"Société Villa Deauville",holder:"Groupe Viviane — information interne à valider juridiquement",sqm:5372.7,sqft:57831.2615,frontage:116.62,assessment:81700,roleSqft:1.4127,status:"Sous réserve",category:"societe",address:"Rue projetée",note:"Au rôle: Société Villa Deauville S.E.N.C. Attribution interne indiquée au groupe Viviane; validation juridique requise."},
+    {id:"1800391",label:"1 800 391",ownerRole:"BLUE SPORTS IMPORT-EXPORT INC.",group:"Blue Sports",holder:"Blue Sports Import-Export inc.",sqm:3424.1,sqft:36856.7057,frontage:44.59,assessment:70000,roleSqft:1.8992,status:"Sous réserve",category:"blue",address:"Rue projetée",note:"Un des trois terrains Blue Sports confirmés au rôle municipal."},
+    {id:"1800392",label:"1 800 392",ownerRole:"BLUE SPORTS IMPORT-EXPORT INC.",group:"Blue Sports",holder:"Blue Sports Import-Export inc.",sqm:3483.9,sqft:37500.3875,frontage:45.72,assessment:70400,roleSqft:1.8773,status:"Sous réserve",category:"blue",address:"Rue projetée",note:"Un des trois terrains Blue Sports confirmés au rôle municipal."},
+    {id:"1800393",label:"1 800 393",ownerRole:"BLUE SPORTS IMPORT-EXPORT INC.",group:"Blue Sports",holder:"Blue Sports Import-Export inc.",sqm:3483.9,sqft:37500.3875,frontage:45.72,assessment:70400,roleSqft:1.8773,status:"Sous réserve",category:"blue",address:"Rue projetée",note:"Un des trois terrains Blue Sports confirmés au rôle municipal."},
+    {id:"1800390",label:"1 800 390",ownerRole:"INDUSTRIES CARDEN INC.",group:"Industries Carden",holder:"Industries Carden inc. — groupe Louis-Philippe",sqm:5392.4,sqft:58043.3105,frontage:45.72,assessment:81900,roleSqft:1.4110,status:"Sous réserve",category:"lp",address:"Rue projetée",note:"Terrain identifié au rôle au nom d’Industries Carden inc.; inclus au groupe projet selon l’information interne."},
+    {id:"1800394",label:"1 800 394",ownerRole:"LES INDUSTRIES CARDEN INC.",group:"Industries Carden",holder:"Industries Carden inc. — groupe Louis-Philippe",sqm:3483.9,sqft:37500.3875,frontage:45.72,assessment:70400,roleSqft:1.8773,status:"Sous réserve",category:"lp",address:"Rue projetée",note:"Terrain identifié au rôle au nom d’Industries Carden inc.; inclus au groupe projet selon l’information interne."},
+    {id:"1800395",label:"1 800 395",ownerRole:"À confirmer au rôle / registre foncier",group:"Louis-Philippe",holder:"Louis-Philippe Drolet — information interne",sqm:null,sqft:null,frontage:null,assessment:null,roleSqft:null,status:"Validation requise",category:"lp",address:"À confirmer",note:"Propriété indiquée dans le dossier interne. La recherche publique doit être reprise pour confirmer superficie, valeur et constructibilité."}
+  ],
+  roadLot:{id:"1800349",label:"1 800 349",ownerRole:"SOCIETE VILLA DEAUVILLE SENC",sqm:11897,sqft:128058.2422,frontage:32.31,assessment:100,note:"Emprise de rue. Non vendable comme terrain résidentiel."}
+};
