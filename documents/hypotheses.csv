@@ -4,10 +4,18 @@ Longueur phase A,522.606,m,Officiel
 Longueur réseau principal,854.295,m,Officiel
 Lots après développement phase A,15,lots,À valider
 Lots après développement total,20,lots,À valider
-Prix moyen par lot développé,250000,$/lot,Illustratif
+Prix moyen par lot développé,185000,$/lot,Interne
+Acquisition terrains Viviane + Blue Sports,500000,$,Budget de travail
+Terrains externes à acquérir,8,lots,Confirmé au dossier
 Frais de vente,5,%,Illustratif
-Études ingénierie environnement,200000,$,Illustratif
+Études ingénierie environnement,100000,$,Illustratif
 Contingence travaux,15,%,Illustratif
-Coût direct du chemin,2500,$/m,Illustratif
+Coût direct du chemin,800,$/m,Illustratif
+Coût chemin bas,500,$/m,Sensibilité
+Coût chemin haut,1100,$/m,Sensibilité
+Revêtement,gravier / pierre compactée,,Confirmé au dossier
+Aqueduc municipal,non,,Confirmé au dossier
+Égout municipal,non,,Confirmé au dossier
+Asphalte,non,,Confirmé au dossier
 Durée,3,années,Illustratif
 Coût annuel du capital,8,%/an,Illustratif
