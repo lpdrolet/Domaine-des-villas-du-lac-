@@ -285,7 +285,66 @@ ${line("Finance et contrats","Offres, quote-parts, devis, transactions comparabl
 </div>`);
 }
 
-const renderers={index:renderHome,acquisitions:renderAcquisitions,routes:renderRoutes,ventes:renderVentes,terrains:renderTerrains,lot:renderLot,finances:renderFinances,documents:renderDocuments};
+
+const renderMap=(function mapFeature(){
+const D=window.DOMAIN_DATA;
+const H=t=>String(t??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const mapMain=()=>`<section class="page-hero"><div class="wrap"><div class="crumb"><a href="index.html">Tableau de bord</a> / <a href="terrains.html">Terrains</a> / Carte</div><span class="hero-kicker">Carte cadastrale indicative</span><h1>Voir les 16 terrains et les deux rues</h1><p>Superposition en direct sur les polygones du cadastre public. Les superficies ont déjà été contre-vérifiées; cette carte n'est ni un plan de bornage ni une preuve de droit de bâtir.</p></div></section>
+<section class="section-block"><div class="wrap">
+<div class="cards-2" style="grid-template-columns:minmax(0,2fr) minmax(220px,1fr)">
+<div class="panel"><div id="cadastral-map" role="region" aria-live="polite" aria-label="Carte SIG indicative"><p>Chargement des polygones cadastraux…</p></div></div>
+<div class="panel"><h3>Légende</h3><div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#ddae66;border-radius:4px"></span> Groupe L.-P.</span><strong>6 lots</strong></div>
+<div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#83b5ab;border-radius:4px"></span> Viviane / SENC</span><strong>6 lots</strong></div>
+<div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#8ca9d1;border-radius:4px"></span> Blue Sports</span><strong>3 lots</strong></div>
+<div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#d6aed1;border-radius:4px"></span> Attribution à vérifier</span><strong>1 lot</strong></div>
+<div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#a7bec8;border-radius:4px"></span> Emprises de rue</span><strong>2 lots</strong></div>
+<div class="warning info"><strong>Lecture de la carte</strong><p>Les limites et dimensions proviennent du cadastre graphique. Cliquer sur un lot pour consulter sa fiche. Les propriétaires restent à confirmer par titres.</p></div>
+<a class="button light" href="terrains.html">Inventaire en tableau</a></div></div>
+<div class="warning" style="margin-top:20px"><strong>Contraintes environnementales</strong><p>Les données biologiques détaillées et l'emplacement des milieux humides potentiels ne sont pas publiés ici; aucune partie de la carte ne certifie une enveloppe constructible.</p></div>
+</div></section>`;
+document.getElementById("site-content").innerHTML=mapMain();
+const target=document.getElementById("cadastral-map");
+const service=D.sources.cadastre+"/query";
+const all=[...D.lots.map(x=>x.label),...D.roads.map(x=>x.label)];
+const where="NO_LOT IN ("+all.map(x=>"'"+x+"'").join(",")+")";
+const url=service+"?"+new URLSearchParams({where,outFields:"NO_LOT",returnGeometry:"true",outSR:"32187",maxAllowableOffset:"0.75",f:"json"});
+const abort=new AbortController();
+const fail=()=>{target.innerHTML='<p class="warning">Carte cadastrale indisponible actuellement. Consultez l’inventaire chiffré; le schéma ci-dessous est historique et non cadastral.</p><img src="assets/plan-schematic.svg" alt="Schéma historique, non cadastral" style="width:100%;height:auto">';};
+const timer=setTimeout(()=>abort.abort(),12000);
+fetch(url,{signal:abort.signal}).then(x=>{if(!x.ok)throw new Error("HTTP "+x.status);return x.json()}).then(json=>{
+clearTimeout(timer);
+const features=(json.features||[]).filter(f=>f.attributes?.NO_LOT&&f.geometry?.rings?.length);
+if(features.length<18)throw new Error("Ensemble incomplet");
+const points=features.flatMap(f=>f.geometry.rings.flat());
+const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]),xmin=Math.min(...xs),xmax=Math.max(...xs),ymin=Math.min(...ys),ymax=Math.max(...ys);
+const pad=26,width=660,height=820,spanX=xmax-xmin,spanY=ymax-ymin,scale=Math.min((width-pad*2)/spanX,(height-pad*2)/spanY);
+const X=x=>pad+(x-xmin)*scale,Y=y=>height-pad-(y-ymin)*scale;
+const ns="http://www.w3.org/2000/svg";
+const svg=document.createElementNS(ns,"svg");svg.setAttribute("viewBox",`0 0 ${width} ${height}`);svg.setAttribute("role","img");svg.setAttribute("aria-label","Plan cadastral graphique de 16 lots et deux emprises");svg.style.width="100%";svg.style.height="auto";
+const bg=document.createElementNS(ns,"rect");for(const [k,v] of Object.entries({x:0,y:0,width,height,fill:"#f4f9fa",rx:12}))bg.setAttribute(k,v);svg.appendChild(bg);
+features.sort((a,b)=>Number(Boolean(D.roads.some(r=>r.label===b.attributes.NO_LOT)))-Number(Boolean(D.roads.some(r=>r.label===a.attributes.NO_LOT))));
+for(const f of features){
+ const id=f.attributes.NO_LOT, lot=D.lots.find(l=>l.label===id), road=!lot;
+ const groups={lp:"#ddae66",viviane:"#83b5ab",blue:"#8ca9d1",verifier:"#d6aed1"};
+ const polygon=document.createElementNS(ns,"path");
+ const paths=f.geometry.rings.map(r=>"M"+r.map(p=>`${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join("L")+"Z").join(" ");
+ polygon.setAttribute("d",paths);polygon.setAttribute("fill",road?"#a7bec8":groups[lot.group]);polygon.setAttribute("stroke","#234457");polygon.setAttribute("stroke-width",road?"2":"1.3");polygon.setAttribute("fill-rule","evenodd");
+ const title=document.createElementNS(ns,"title");title.textContent=road?"Rue "+id:"Lot "+id+" — "+lot.area.toLocaleString("fr-CA")+" m²";polygon.appendChild(title);
+ if(lot){polygon.setAttribute("tabindex","0");polygon.setAttribute("role","link");polygon.setAttribute("aria-label","Ouvrir la fiche du lot "+id);
+ const go=()=>window.location.assign("lot.html?id="+lot.id);polygon.style.cursor="pointer";polygon.addEventListener("click",go);polygon.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}});}
+ svg.appendChild(polygon);
+}
+for(const lot of D.lots){
+ const f=features.find(x=>x.attributes.NO_LOT===lot.label);if(!f)continue;
+ const a=f.geometry.rings[0],xs=a.map(p=>p[0]),ys=a.map(p=>p[1]);
+ const cx=(Math.min(...xs)+Math.max(...xs))/2,cy=(Math.min(...ys)+Math.max(...ys))/2;
+ const tx=document.createElementNS(ns,"text");tx.setAttribute("x",X(cx));tx.setAttribute("y",Y(cy));tx.setAttribute("font-size","14");tx.setAttribute("font-weight","750");tx.setAttribute("text-anchor","middle");tx.setAttribute("fill","#12334b");tx.setAttribute("stroke","white");tx.setAttribute("stroke-width","3");tx.setAttribute("paint-order","stroke");tx.textContent=lot.label.slice(-3);svg.appendChild(tx);
+}
+target.innerHTML="";target.appendChild(svg);
+const c=document.createElement("p");c.className="data-note";c.textContent="18 polygones chargés depuis le service cadastral public. Représentation SIG seulement, non opposable.";target.appendChild(c);
+}).catch(e=>{clearTimeout(timer);fail();});
+});
+const renderers={carte:renderMap,index:renderHome,acquisitions:renderAcquisitions,routes:renderRoutes,ventes:renderVentes,terrains:renderTerrains,lot:renderLot,finances:renderFinances,documents:renderDocuments};
 document.getElementById("site-header").innerHTML=header;
 document.getElementById("site-footer").innerHTML=footer;
 document.getElementById("site-content").innerHTML=(renderers[page]||renderHome)();
