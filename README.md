@@ -1,65 +1,70 @@
-# Domaine des Villas du Lac — Site du projet
+# Domaine des villas du lac — Pilotage du développement
 
-Site statique du développement immobilier de la rue des Villas, secteur Deauville, Sherbrooke (Québec).
+Site statique de suivi du projet de Deauville à Sherbrooke, au Québec.
+Révision fonctionnelle et cadastrale : **15 octobre 2026**.
 
-## Organisation du projet
+## Les trois piliers
 
-- `index.html` — **tableau de bord** « où nous sommes rendus / reste à faire », avec statut et points bloquants.
-- `acquisitions.html` — **01 Acquisition des autres propriétaires** : titres, négociations conditionnelles, quote-part.
-- `routes.html` — **02 Construction de la rue** : réseau total, partie existante et travaux résiduels.
-- `ventes.html` — **03 Ventes des terrains** : lots constructibles, prix et stratégie de commercialisation.
-- `finances.html` — hypothèses et scénarios comparatifs (aucun bénéfice net affirmé).
-- `terrains.html`, `lot.html` — registre partiel et fiches cadastrales, non suffisant pour transfert de propriété.
-- `documents.html` — sources, documents de travail et diligences.
+1. **Acquisitions** : titres et droits réels, achat conditionnel, quote-part et décisions des partenaires.
+2. **Construction de la rue** : deux emprises distinctes, chemin existant, prolongement à mesurer, autorisations et devis.
+3. **Ventes** : capacité légale de vendre, dossiers acheteurs, prix comparables et scénarios de commercialisation.
 
-## Réconciliation des longueurs (15 octobre 2026)
+Pages : `index.html`, `acquisitions.html`, `routes.html`, `ventes.html`, `terrains.html`, `lot.html`, `finances.html`, `documents.html`.
 
-| Notion | Valeur | Statut |
+Le portail commun est dans `assets/portal.js`, la présentation dans `assets/portal.css` et les données non sensibles dans `assets/data.js`.
+
+## Données de référence
+
+| Variable | Valeur | Fiabilité |
 | --- | ---: | --- |
-| Réseau complet | 854,295 m | Tracé historique des 3 tronçons |
-| Déjà construit | environ 400 m | Information du propriétaire, approximative |
-| Restant théorique | environ 454 m | 854 - 400, résultat approximatif |
-| Annonce historique travaux | 478 m | Hypothèse non mesurée, à ne pas retenir comme longueur du chantier |
-| Lots commercialisés visés | 15 | Objectif, non nombre légalement constructible |
+| Terrains candidats identifiés | 16 | Concordance graphique, non constructibilité |
+| Superficie graphique résidentielle | 65 315,1 m² / env. 703 046 pi² | Polygones cadastraux |
+| Lot de rue 1 800 349 | 2 629,5 m² | Mesure SIG |
+| Lot de rue 4 889 707 | 9 270,2 m² | Mesure SIG |
+| Superficie des deux rues | 11 899,7 m² | Mesure SIG |
+| Réseau historique complet | 854,295 m | Tracé SIG ancien |
+| Rue déjà construite | env. 400 m | Déclaration à arpenter |
+| Reste théorique | env. 454 m | Calcul, non métrage de travaux |
+| Ancienne mesure A + B | 452 m | 223 + 229 m |
+| Ancienne enveloppe chantier | 478 m | Contradictoire, à mesurer |
+| Ventes visées | 15 | Cible, non faisabilité légale |
+| Prix développé cible | 185 000 $/terrain | Sans comparables validés |
+| Valeur tel quel indicative | 1,50 $/pi² | Hypothèse, non évaluation |
 
-Écart de 24 m entre reste théorique et reste budgété. Les tronçons A (223 m) et B (229 m) additionnent 452 m et présentent un autre écart de 26 m par rapport aux 478 m annoncés. Un plan et un mesurage d'arpentage doivent trancher.
+La version primaire du service cadastral est datée du **9 août 2026**; le 15 octobre est la date de contrôle. Une seconde diffusion des mêmes données produit un écart maximal de 0,02 m² sur les 18 parcelles de travail. Cela n'est pas une certification légale indépendante.
 
-## Correction des deux emprises routières
+La couche provinciale de milieux humides **potentiels** recoupe 9 lots sur environ 8 011,9 m². Il ne s'agit pas d'une aire réglementaire réputée inconstructible. Ne pas publier la superposition lot par lot sans évaluer le contexte.
 
-- Rue cadastrée sous le lot **1 800 349** : 11 897 m² déclarés à l’ancien rôle municipal; aucune limite certifiée ici.
-- Deuxième emprise : lot **4 889 707**. Sa superficie et sa façade sont **inconnues** : ne pas copier la valeur du lot 1 800 349.
-- Ancien tronçon A (223 m) + B (229 m) = **452 m**, et non 478 m. La différence 854 − environ 400 = environ 454 m reste indicative.
-- Aucun de ces nombres ne remplace un relevé du tronçon à construire ni la validation municipale du statut de la rue.
+L'ancien rôle a très probablement regroupé les lots 1 800 348 et 1 800 389 sous une même unité; leurs superficies géométriques individuelles sont respectivement 1 571,9 m² et 3 484,2 m². L'ancien rôle a aussi regroupé les deux emprises de rue. Le lot 1 800 374 n'est pas retrouvé dans la couche cadastrale actuelle. L'attribution actuelle du lot 1 800 388 n'est pas confirmée.
 
-## Données de base, limites et confidentialité
+## Niveau de confidentialité
 
-Le fichier Excel fourni daté du 7 septembre 2026 inventorie 48 lots **de contrôle** incluant des voisins. Les 48 géométries ont été recalculées au 15 octobre 2026. Le site affiche désormais **16 lots résidentiels identifiés** et **2 emprises de rue distinctes**. Le lot 1 800 374 n’a pas été retrouvé dans la couche SIG actuelle. Cela ne confirme pas que 15 lots pourront être vendus.
+**Le dépôt GitHub est public.** Aucun titre détaillé, offre signée, perte fiscale, trésorerie, simulation de bénéfice privée, entente entre associés ou document personnel ne doit y être publié.
 
-Le projet de lotissement aurait été accepté par l'ancienne Ville de Deauville selon le propriétaire; preuve écrite et portée actuelle à confirmer auprès de Sherbrooke.
+Le navigateur sauvegarde les cases cochées du plan d'action **localement**. Cette sauvegarde ne synchronise pas les tâches entre utilisateurs et ne constitue pas un dossier officiel.
 
-**Ce dépôt est public.** Ne jamais y ajouter les propositions d'achat signées, les noms/adresses personnels non nécessaires, la fiscalité détaillée, les offres et les renseignements financiers privés. Éviter de traiter les anciens fichiers CSV/JS comme des sources à jour.
+Le site doit être traité comme un outil de présentation et de pilotage public. Le registre cadastral exhaustif contre-vérifié, les contrats, les analyses fiscales et les études par lot restent dans un dossier privé distinct.
 
-## Publication
+## Livrables à obtenir
 
-Aucune compilation ni dépendance nécessaire. La racine du dépôt est compatible avec GitHub Pages et des hébergements de site statique.
+- Fiches Infolot détaillées des 16 terrains et 2 rues, et historique du lot 374.
+- Titres actuels, servitudes et clarification du lot 388.
+- Résolution et plans du projet historique de Deauville.
+- Réponse écrite de Sherbrooke concernant le statut de la rue, les normes, la possibilité de gravier et les contraintes municipales.
+- Mesurage de la rue existante et du prolongement, caractérisation environnementale et plans de génie civil.
+- Deux soumissions comparables, comparables immobiliers et modèle fiscal/net **privé**.
 
-## Statut
+## Exploitation du site
 
-Mise à jour de la structure le 15 octobre 2026. Les analyses juridiques, fiscales, municipales, techniques et financières doivent être validées avant décision.
+Site statique sans compilation et sans dépendances externes. Toutes les pages doivent charger `assets/data.js`, puis `assets/portal.js` et `assets/portal.css`. Les pages sont directement accessibles depuis leur fichier HTML.
 
-## Audit cadastral — 15 octobre 2026
+Le dépôt est compatible avec un hébergement statique. Les changements sur GitHub ne prouvent **pas** que le déploiement actuel Netlify a été actualisé. Contrôler la version publiée, le statut de l'accès par SSO et la branche de déploiement. Ne pas désactiver les contrôles d'accès pour faciliter le déploiement sans accord explicite.
 
-Les géométries proviennent du service public [Cadastre Québec](https://services3.arcgis.com/0lL78GhXbg1Po7WO/ArcGIS/rest/services/cadastre_bd_allegee/FeatureServer/0), reprojetées EPSG:32187 : aire et périmètre géométriques (non légaux).
+## Sources
 
-- 16 terrains résidentiels candidats : **65 315,1 m² (≈703 046 pi²)**.
-- Rue 1 800 349 : **2 629,5 m²**; rue 4 889 707 : **9 270,2 m²**. Total : **11 899,7 m²**.
-- Terrains 1 800 348 = **1 571,9 m²** et 1 800 389 = **3 484,2 m²**. Leurs aires totalisent **5 056,1 m²**, près de la superficie inscrite pour chacun dans l'ancien registre du rôle. Cette ancienne superficie est vraisemblablement celle de l'unité d'évaluation regroupée.
-- Les chiffres exacts inscrits au plan cadastral, les actes et permis restent à consulter auprès d’Infolot, des notaires et de la Ville. Ne pas confondre superficie brute avec droits constructibles.
-
-## Contre-vérification du 15 octobre 2026
-
-- La **version primaire** du service SIG cadastral indique **9 août 2026**, et le second service gouvernemental consulté affiche une version historique du **5 octobre 2025** : la consultation en octobre n'en fait pas une édition d'octobre.
-- 18 lots (16 parcelles + 2 rues) concordent entre les deux services à **0,02 m² d'écart géométrique maximum**. Les sources reposent toutes deux sur le cadastre du Québec; ceci ne constitue **pas une preuve légale indépendante**.
-- Le lot **1 800 388** est affecté à Gestion DeniDro dans un ancien registre mais marqué comme **« à reprendre »** dans une autre version. L'attribution actuelle n'est pas validée. Répartition de contrôle : 6 associés au groupe Louis-Philippe + 1 non confirmé + 3 Blue Sports + 6 Viviane/SENC.
-- Une seconde intersection des milieux humides potentiels **sans simplification** donne **8 011,9 m² sur 9 lots**, au lieu des 8 004,0 m² indicatifs antérieurs. Cette surface n'est pas assimilable à une aire légalement non constructible.
-- Les fiches descriptives officielles Infolot, les titres et servitudes, la délimitation biologique et le contrôle municipal restent requis avant prix, acquisitions ou travaux.
+- [Cadastre SIG primaire](https://services3.arcgis.com/0lL78GhXbg1Po7WO/ArcGIS/rest/services/cadastre_bd_allegee/FeatureServer/0)
+- [Cadastre SIG secondaire](https://geo.environnement.gouv.qc.ca/donnees/rest/services/Reference/Cadastre_allege/MapServer/0)
+- [Infolot](https://appli.foncier.gouv.qc.ca/infolot/)
+- [Rôle municipal de Sherbrooke](https://www.sherbrooke.ca/fr/services-a-la-population/taxes-et-evaluation/evaluation-fonciere/role-d-evaluation)
+- [Grille d'usage PRA1589](https://cartes.ville.sherbrooke.qc.ca/GrilleUsage/?zoneid=PRA1589)
+- [Protection des milieux naturels](https://www.sherbrooke.ca/fr/services-a-la-population/permis-et-certificats/permis-pour-construction-renovation-et-travaux/zones-de-contraintes-naturelles/protection-des-milieux-naturels)
