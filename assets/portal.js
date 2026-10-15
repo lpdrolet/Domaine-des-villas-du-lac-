@@ -286,7 +286,7 @@ ${line("Finance et contrats","Offres, quote-parts, devis, transactions comparabl
 }
 
 
-const renderMap=(function mapFeature(){
+const initMap=(function mapFeature(){
 const D=window.DOMAIN_DATA;
 const H=t=>String(t??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const mapMain=()=>`<section class="page-hero"><div class="wrap"><div class="crumb"><a href="index.html">Tableau de bord</a> / <a href="terrains.html">Terrains</a> / Carte</div><span class="hero-kicker">Carte cadastrale indicative</span><h1>Voir les 16 terrains et les deux rues</h1><p>Superposition en direct sur les polygones du cadastre public. Les superficies ont déjà été contre-vérifiées; cette carte n'est ni un plan de bornage ni une preuve de droit de bâtir.</p></div></section>
@@ -344,10 +344,12 @@ target.innerHTML="";target.appendChild(svg);
 const c=document.createElement("p");c.className="data-note";c.textContent="18 polygones chargés depuis le service cadastral public. Représentation SIG seulement, non opposable.";target.appendChild(c);
 }).catch(e=>{clearTimeout(timer);fail();});
 });
+const renderMap=()=>'<section class="section-block"><div class="wrap"><p>Préparation de la carte cadastrale…</p></div></section>';
 const renderers={carte:renderMap,index:renderHome,acquisitions:renderAcquisitions,routes:renderRoutes,ventes:renderVentes,terrains:renderTerrains,lot:renderLot,finances:renderFinances,documents:renderDocuments};
 document.getElementById("site-header").innerHTML=header;
 document.getElementById("site-footer").innerHTML=footer;
 document.getElementById("site-content").innerHTML=(renderers[page]||renderHome)();
+if(page==="carte")initMap();
 const toggle=document.getElementById("nav-toggle");
 if(toggle)toggle.addEventListener("click",()=>{const navEl=document.getElementById("primary-nav");const open=navEl.classList.toggle("open");toggle.setAttribute("aria-expanded",String(open));});
 const clamp=(x,min,max,def)=>{let v=Number(x);return Number.isFinite(v)?Math.min(max,Math.max(min,v)):def;};
