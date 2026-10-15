@@ -41,7 +41,7 @@ L'ancien rôle a très probablement regroupé les lots 1 800 348 et 1 800 389 so
 
 **Le dépôt GitHub est public.** Aucun titre détaillé, offre signée, perte fiscale, trésorerie, simulation de bénéfice privée, entente entre associés ou document personnel ne doit y être publié.
 
-La carte cadastrale est chargée à la demande depuis le service gouvernemental ArcGIS et revient à un schéma historique non cadastral si la requête échoue. Le chargement réel de la carte dans un navigateur doit être testé sur le site déployé.
+La carte cadastrale utilise désormais **assets/geometry.js**, soit une copie locale simplifiée des polygones gouvernementaux (18 contours) et **ne dépend plus d'une requête ArcGIS au chargement**. Ces polygones ne doivent servir qu'à la visualisation : les superficies proviennent des calculs géométriques sur les contours non simplifiés. Les tests automatisés vérifient les 18 tracés, mais l'affichage en production Netlify reste à contrôler après déploiement.
 
 Le navigateur sauvegarde les cases cochées du plan d'action **localement**. Cette sauvegarde ne synchronise pas les tâches entre utilisateurs et ne constitue pas un dossier officiel.
 
@@ -70,3 +70,7 @@ Le dépôt est compatible avec un hébergement statique. Les changements sur Git
 - [Rôle municipal de Sherbrooke](https://www.sherbrooke.ca/fr/services-a-la-population/taxes-et-evaluation/evaluation-fonciere/role-d-evaluation)
 - [Grille d'usage PRA1589](https://cartes.ville.sherbrooke.qc.ca/GrilleUsage/?zoneid=PRA1589)
 - [Protection des milieux naturels](https://www.sherbrooke.ca/fr/services-a-la-population/permis-et-certificats/permis-pour-construction-renovation-et-travaux/zones-de-contraintes-naturelles/protection-des-milieux-naturels)
+
+## Contrôle qualité automatisé
+
+Le workflow `.github/workflows/verify.yml` s'exécute à chaque push sur `main` et sur les demandes de fusion. Son script `scripts/qa.mjs` vérifie les neuf pages, les liens vers les ressources, la syntaxe JS, les 16 lots, les 2 emprises, les 14 tâches, les contours SIG locaux, les filtres et les calculatrices. **Un contrôle de code réussi n'atteste pas que Netlify a publié le commit.**
