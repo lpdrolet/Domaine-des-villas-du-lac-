@@ -12,7 +12,7 @@ const roadArea=D.roads.reduce((s,x)=>s+x.area,0);
 const groupCount=g=>D.lots.filter(x=>x.group===g).length;
 const page=document.body.dataset.page||"index";
 const sources=D.sources;
-const pages=[["index","Vue d'ensemble","index.html"],["acquisitions","01 Acquisitions","acquisitions.html"],["routes","02 Construction","routes.html"],["ventes","03 Ventes","ventes.html"],["terrains","Terrains","terrains.html"],["finances","Scénarios","finances.html"],["documents","Sources / actions","documents.html"]];
+const pages=[["index","Vue d'ensemble","index.html"],["acquisitions","01 Acquisitions","acquisitions.html"],["routes","02 Construction","routes.html"],["ventes","03 Ventes","ventes.html"],["terrains","Terrains","terrains.html"],["carte","Carte SIG","carte.html"],["finances","Scénarios","finances.html"],["documents","Sources / actions","documents.html"]];
 const pill=(s,cls="")=>`<span class="badge-inline ${cls}">${H(s)}</span>`;
 const arrow=" → ";
 const cta=(text,href,variant="")=>`<a class="button ${variant}" href="${H(href)}">${H(text)}</a>`;
@@ -80,7 +80,7 @@ ${info("Principe de prudence","Le projet historique peut constituer une pièce u
 const tasks=section("Exécution","Les prochaines actions prioritaires",`<div class="cards-3">
 <div class="panel"><div class="meta">Immédiat</div><h3>Documentation juridique</h3><p>Registre foncier, mesures Infolot et acte de propriété des deux rues.</p>${pill("P0","warn")}</div>
 <div class="panel"><div class="meta">En parallèle</div><h3>Réponse de Sherbrooke</h3><p>Validité du projet historique, statut de la rue, standards et milieux naturels.</p>${pill("P0","warn")}</div>
-<div class="panel"><div class="meta">Après les validations</div><h3>Devis + marché</h3><p>Avant-projet civil, soumissions, nombre vendable et comparables réels.</p>${pill("P1")}</div></div><p style="margin-top:20px">${cta("Ouvrir les 14 tâches détaillées","documents.html#actions")}</p>`);
+<div class="panel"><div class="meta">Après les validations</div><h3>Devis + marché</h3><p>Avant-projet civil, soumissions, nombre vendable et comparables réels.</p>${pill("P1")}</div></div><p style="margin-top:20px">${cta("Ouvrir les 14 tâches détaillées","documents.html#actions")} ${cta("Carte des terrains","carte.html","light")}</p>`);
 return top+stats+steps+section("État du réseau","Le point qui change tout",metro,"alt")+blockers+tasks;
 }
 
@@ -159,7 +159,7 @@ ${info("Point de méthode","Le produit brut indicatif de 15 × 185 000 $ est 2 7
 <div class="panel"><div class="num-mark">A</div><h3>Vente telle quelle</h3><p>Pas d'avance de capital pour la route, mais prix potentiellement réduit et acheteurs limités.</p><p>Base à valider : surface véritablement cessible × prix établi par comparables.</p></div>
 <div class="panel"><div class="num-mark">B</div><h3>Ventes individuelles</h3><p>Réaliser les accès conformes et vendre chaque lot développé avec un dossier acheteur complet.</p><p>Dépend des permis, du nombre constructible et des coûts civils.</p></div>
 <div class="panel"><div class="num-mark">C</div><h3>Vente en bloc</h3><p>Présenter le plan aux promoteurs avec une diligence claire sur les risques, titres et accès.</p><p>Comparer produit net, délai et risque de financement.</p></div></div>`,"alt")
-+section("Vérification par lot","Inventaire commercial potentiel",layoutTable(["Lot","Aire graphique","Équivalent","État"],rows)+`<p class="data-note">Un lot identifié n'est pas automatiquement un lot constructible. Les contraintes environnementales détaillées et les titres restent dans le dossier de travail confidentiel.</p><p>${cta("Consulter les fiches de lots","terrains.html")} ${cta("Analyse illustrative","finances.html","light")}</p>`)
++section("Vérification par lot","Inventaire commercial potentiel",layoutTable(["Lot","Aire graphique","Équivalent","État"],rows)+`<p class="data-note">Un lot identifié n'est pas automatiquement un lot constructible. Les contraintes environnementales détaillées et les titres restent dans le dossier de travail confidentiel.</p><p>${cta("Consulter les fiches de lots","terrains.html")} ${cta("Carte cadastrale","carte.html","light")} ${cta("Analyse illustrative","finances.html","light")}</p>`)
 +section("Livrables","Conditions de lancement de la commercialisation",`<div class="lined-list">
 ${line("Plan légal et certificat","Aire, façade, limites, servitudes, périmètre constructible et droit de vente du titulaire.")}
 ${line("Conformité de la rue","Accès légal, voie conforme, entretien et coûts résiduels connus.")}
@@ -185,7 +185,7 @@ ${metric("Attribution à confirmer","1 lot","Lot 1 800 388")}
 <div class="field"><label for="lot-group">Groupe de travail</label><select id="lot-group"><option value="all">Tous les groupes (16)</option>${groups}</select></div>
 <div class="field"><label for="lot-sort">Trier</label><select id="lot-sort"><option value="id">Numéro de lot</option><option value="area-asc">Superficie croissante</option><option value="area-desc">Superficie décroissante</option></select></div>
 <button class="button light" id="export-lots" type="button">Exporter CSV</button></div>
-<p class="subtle" id="lot-count" aria-live="polite"></p><div class="mini-grid" id="lot-cards"></div>`,"alt")
+<p class="subtle" id="lot-count" aria-live="polite"></p><p style="margin:12px 0"><a class="button light" href="carte.html">Afficher la carte cadastrale indicative</a></p><div class="mini-grid" id="lot-cards"></div>`,"alt")
 +section("Rues","Emprises distinctes, non comprises dans les 16 terrains",
 layoutTable(["Lot de rue","Superficie SIG","Périmètre graphique","Rôle dans le projet"],
 D.roads.map(r=>`<tr>${cells([`<strong>${H(r.label)}</strong>`,`<span class="num">${n(r.area,1)} m²</span>`,`<span class="num">${n(r.perimeter,1)} m</span>`,H(r.note)])}</tr>`))+
@@ -291,7 +291,7 @@ const D=window.DOMAIN_DATA;
 const H=t=>String(t??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const mapMain=()=>`<section class="page-hero"><div class="wrap"><div class="crumb"><a href="index.html">Tableau de bord</a> / <a href="terrains.html">Terrains</a> / Carte</div><span class="hero-kicker">Carte cadastrale indicative</span><h1>Voir les 16 terrains et les deux rues</h1><p>Superposition en direct sur les polygones du cadastre public. Les superficies ont déjà été contre-vérifiées; cette carte n'est ni un plan de bornage ni une preuve de droit de bâtir.</p></div></section>
 <section class="section-block"><div class="wrap">
-<div class="cards-2" style="grid-template-columns:minmax(0,2fr) minmax(220px,1fr)">
+<div class="cards-2 map-layout">
 <div class="panel"><div id="cadastral-map" role="region" aria-live="polite" aria-label="Carte SIG indicative"><p>Chargement des polygones cadastraux…</p></div></div>
 <div class="panel"><h3>Légende</h3><div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#ddae66;border-radius:4px"></span> Groupe L.-P.</span><strong>6 lots</strong></div>
 <div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#83b5ab;border-radius:4px"></span> Viviane / SENC</span><strong>6 lots</strong></div>
