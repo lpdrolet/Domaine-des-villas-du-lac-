@@ -1,21 +1,16 @@
-hypothese,valeur,unite,statut
-Prix de vente brut tel quel,1.50,$/pi2,Interne
-Longueur phase A,522.606,m,Officiel
-Longueur réseau principal,854.295,m,Officiel
-Lots après développement phase A,15,lots,À valider
-Lots après développement total,20,lots,À valider
-Prix moyen par lot développé,185000,$/lot,Interne
-Acquisition terrains Viviane + Blue Sports,500000,$,Budget de travail
-Terrains externes à acquérir,8,lots,Confirmé au dossier
-Frais de vente,5,%,Illustratif
-Études ingénierie environnement,100000,$,Illustratif
-Contingence travaux,15,%,Illustratif
-Coût direct du chemin,800,$/m,Illustratif
-Coût chemin bas,500,$/m,Sensibilité
-Coût chemin haut,1100,$/m,Sensibilité
-Revêtement,gravier / pierre compactée,,Confirmé au dossier
-Aqueduc municipal,non,,Confirmé au dossier
-Égout municipal,non,,Confirmé au dossier
-Asphalte,non,,Confirmé au dossier
-Durée,3,années,Illustratif
-Coût annuel du capital,8,%/an,Illustratif
+"Hypothese";"Valeur";"Unite";"Statut/limite"
+"Reseau historique total";"854.295";"m";"Tracé SIG historique; non mesurage de travaux"
+"Route existante";"400";"m";"Déclaration approximative"
+"Reste théorique";"454.295";"m";"Calcul 854.295-400; non chantier certifié"
+"Anciens tronçons A+B";"452";"m";"223 + 229; historique contradictoire"
+"Autre ancienne enveloppe";"478";"m";"Non utilisable comme métrage certifié"
+"Deux lots de rue";"2";"lots";"1 800 349 et 4 889 707"
+"Superficie totale emprises";"11899.7";"m2";"Donnée géométrique indicative"
+"Lots résidentiels identifiés";"16";"lots";"Non égal à lots constructibles"
+"Ventes visées";"15";"lots";"Objectif non validé"
+"Prix par vente";"185000";"CAD/lot";"Cible sans comparable validé"
+"Prix tel quel";"1.5";"CAD/pi2";"Référence de travail"
+"Coût direct rue";"800";"CAD/m";"Hypothèse illustrative, ni devis ni appel d'offres"
+"Contingence";"15";"%";"Hypothèse illustrative"
+"Milieu humide potentiel";"8011.9";"m2";"Cartographie indicative; non servitude"
+"Date primaire cadastre";"2026-08-09";"date";"La date de consultation n'est pas la date de la source"
