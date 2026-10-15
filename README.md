@@ -33,7 +33,7 @@ Site statique du développement immobilier de la rue des Villas, secteur Deauvil
 
 ## Données de base, limites et confidentialité
 
-Le fichier Excel fourni daté du 7 septembre 2026 inventorie 48 lots **candidats de contrôle**, dont 32 avec superficie. Cela ne signifie pas 48 lots au projet : les voisins et emprises sont inclus. Le site affiche actuellement 11 lots suivis, sans confirmer que tous soient commercialisables.
+Le fichier Excel fourni daté du 7 septembre 2026 inventorie 48 lots **de contrôle** incluant des voisins. Les 48 géométries ont été recalculées au 15 octobre 2026. Le site affiche désormais **16 lots résidentiels identifiés** et **2 emprises de rue distinctes**. Le lot 1 800 374 n’a pas été retrouvé dans la couche SIG actuelle. Cela ne confirme pas que 15 lots pourront être vendus.
 
 Le projet de lotissement aurait été accepté par l'ancienne Ville de Deauville selon le propriétaire; preuve écrite et portée actuelle à confirmer auprès de Sherbrooke.
 
@@ -46,3 +46,12 @@ Aucune compilation ni dépendance nécessaire. La racine du dépôt est compatib
 ## Statut
 
 Mise à jour de la structure le 15 octobre 2026. Les analyses juridiques, fiscales, municipales, techniques et financières doivent être validées avant décision.
+
+## Audit cadastral — 15 octobre 2026
+
+Les géométries proviennent du service public [Cadastre Québec](https://services3.arcgis.com/0lL78GhXbg1Po7WO/ArcGIS/rest/services/cadastre_bd_allegee/FeatureServer/0), reprojetées EPSG:32187 : aire et périmètre géométriques (non légaux).
+
+- 16 terrains résidentiels candidats : **65 315,1 m² (≈703 046 pi²)**.
+- Rue 1 800 349 : **2 629,5 m²**; rue 4 889 707 : **9 270,2 m²**. Total : **11 899,7 m²**.
+- Terrains 1 800 348 = **1 571,9 m²** et 1 800 389 = **3 484,2 m²**. Leurs aires totalisent **5 056,1 m²**, près de la superficie inscrite pour chacun dans l'ancien registre du rôle. Cette ancienne superficie est vraisemblablement celle de l'unité d'évaluation regroupée.
+- Les chiffres exacts inscrits au plan cadastral, les actes et permis restent à consulter auprès d’Infolot, des notaires et de la Ville. Ne pas confondre superficie brute avec droits constructibles.
