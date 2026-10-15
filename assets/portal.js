@@ -289,10 +289,10 @@ ${line("Finance et contrats","Offres, quote-parts, devis, transactions comparabl
 const initMap=(function mapFeature(){
 const D=window.DOMAIN_DATA;
 const H=t=>String(t??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const mapMain=()=>`<section class="page-hero"><div class="wrap"><div class="crumb"><a href="index.html">Tableau de bord</a> / <a href="terrains.html">Terrains</a> / Carte</div><span class="hero-kicker">Carte cadastrale indicative</span><h1>Voir les 16 terrains et les deux rues</h1><p>Superposition en direct sur les polygones du cadastre public. Les superficies ont déjà été contre-vérifiées; cette carte n'est ni un plan de bornage ni une preuve de droit de bâtir.</p></div></section>
+const mapMain=()=>`<section class="page-hero"><div class="wrap"><div class="crumb"><a href="index.html">Tableau de bord</a> / <a href="terrains.html">Terrains</a> / Carte</div><span class="hero-kicker">Carte cadastrale indicative</span><h1>Voir les 16 terrains et les deux rues</h1><p>Visualisation à partir de géométries cadastrales gouvernementales simplifiées et conservées localement. Les superficies ont déjà été contre-vérifiées; cette carte n'est ni un plan de bornage ni une preuve de droit de bâtir.</p></div></section>
 <section class="section-block"><div class="wrap">
 <div class="cards-2 map-layout">
-<div class="panel"><div id="cadastral-map" role="region" aria-live="polite" aria-label="Carte SIG indicative"><p>Chargement des polygones cadastraux…</p></div></div>
+<div class="panel"><div id="cadastral-map" role="region" aria-live="polite" aria-label="Carte SIG indicative"><p>Préparation des géométries cadastrales locales…</p></div></div>
 <div class="panel"><h3>Légende</h3><div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#ddae66;border-radius:4px"></span> Groupe L.-P.</span><strong>6 lots</strong></div>
 <div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#83b5ab;border-radius:4px"></span> Viviane / SENC</span><strong>6 lots</strong></div>
 <div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#8ca9d1;border-radius:4px"></span> Blue Sports</span><strong>3 lots</strong></div>
@@ -304,17 +304,10 @@ const mapMain=()=>`<section class="page-hero"><div class="wrap"><div class="crum
 </div></section>`;
 document.getElementById("site-content").innerHTML=mapMain();
 const target=document.getElementById("cadastral-map");
-const service=D.sources.cadastre+"/query";
-const all=[...D.lots.map(x=>x.label),...D.roads.map(x=>x.label)];
-const where="NO_LOT IN ("+all.map(x=>"'"+x+"'").join(",")+")";
-const url=service+"?"+new URLSearchParams({where,outFields:"NO_LOT",returnGeometry:"true",outSR:"32187",maxAllowableOffset:"0.75",f:"json"});
-const abort=new AbortController();
-const fail=()=>{target.innerHTML='<p class="warning">Carte cadastrale indisponible actuellement. Consultez l’inventaire chiffré; le schéma ci-dessous est historique et non cadastral.</p><img src="assets/plan-schematic.svg" alt="Schéma historique, non cadastral" style="width:100%;height:auto">';};
-const timer=setTimeout(()=>abort.abort(),12000);
-fetch(url,{signal:abort.signal}).then(x=>{if(!x.ok)throw new Error("HTTP "+x.status);return x.json()}).then(json=>{
-clearTimeout(timer);
-const features=(json.features||[]).filter(f=>f.attributes?.NO_LOT&&f.geometry?.rings?.length);
-if(features.length<18)throw new Error("Ensemble incomplet");
+const geo=window.DOMAIN_GEOMETRY;
+const origin=geo?.origin||[0,0];
+const features=(geo?.features||[]).map(f=>({attributes:{NO_LOT:f.id},geometry:{rings:f.rings.map(r=>r.map(p=>[p[0]+origin[0],p[1]+origin[1]]))}}));
+if(features.length!==18){target.innerHTML='<div class="warning">Géométries non disponibles. <a href="terrains.html">Consulter le registre des terrains</a>.</div>';return;}
 const points=features.flatMap(f=>f.geometry.rings.flat());
 const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]),xmin=Math.min(...xs),xmax=Math.max(...xs),ymin=Math.min(...ys),ymax=Math.max(...ys);
 const pad=26,width=660,height=820,spanX=xmax-xmin,spanY=ymax-ymin,scale=Math.min((width-pad*2)/spanX,(height-pad*2)/spanY);
@@ -341,8 +334,8 @@ for(const lot of D.lots){
  const tx=document.createElementNS(ns,"text");tx.setAttribute("x",X(cx));tx.setAttribute("y",Y(cy));tx.setAttribute("font-size","14");tx.setAttribute("font-weight","750");tx.setAttribute("text-anchor","middle");tx.setAttribute("fill","#12334b");tx.setAttribute("stroke","white");tx.setAttribute("stroke-width","3");tx.setAttribute("paint-order","stroke");tx.textContent=lot.label.slice(-3);svg.appendChild(tx);
 }
 target.innerHTML="";target.appendChild(svg);
-const c=document.createElement("p");c.className="data-note";c.textContent="18 polygones chargés depuis le service cadastral public. Représentation SIG seulement, non opposable.";target.appendChild(c);
-}).catch(e=>{clearTimeout(timer);fail();});
+const c=document.createElement("p");c.className="data-note";c.textContent="18 polygones SIG simplifiés chargés localement. Les surfaces affichées proviennent des calculs indépendants sur les polygones non simplifiés. Mesures indicatives, non opposables.";target.appendChild(c);
+
 });
 const renderMap=()=>'<section class="section-block"><div class="wrap"><p>Préparation de la carte cadastrale…</p></div></section>';
 const renderers={carte:renderMap,index:renderHome,acquisitions:renderAcquisitions,routes:renderRoutes,ventes:renderVentes,terrains:renderTerrains,lot:renderLot,finances:renderFinances,documents:renderDocuments};
