@@ -9,7 +9,7 @@ Révision fonctionnelle et cadastrale : **15 octobre 2026**.
 2. **Construction de la rue** : deux emprises distinctes, chemin existant, prolongement à mesurer, autorisations et devis.
 3. **Ventes** : capacité légale de vendre, dossiers acheteurs, prix comparables et scénarios de commercialisation.
 
-Pages : `index.html`, `acquisitions.html`, `routes.html`, `ventes.html`, `terrains.html`, `lot.html`, `finances.html`, `documents.html`.
+Pages : `index.html`, `acquisitions.html`, `routes.html`, `ventes.html`, `terrains.html`, `carte.html`, `lot.html`, `finances.html`, `documents.html`.
 
 Le portail commun est dans `assets/portal.js`, la présentation dans `assets/portal.css` et les données non sensibles dans `assets/data.js`.
 
@@ -40,6 +40,8 @@ L'ancien rôle a très probablement regroupé les lots 1 800 348 et 1 800 389 so
 ## Niveau de confidentialité
 
 **Le dépôt GitHub est public.** Aucun titre détaillé, offre signée, perte fiscale, trésorerie, simulation de bénéfice privée, entente entre associés ou document personnel ne doit y être publié.
+
+La carte cadastrale est chargée à la demande depuis le service gouvernemental ArcGIS et revient à un schéma historique non cadastral si la requête échoue. Le chargement réel de la carte dans un navigateur doit être testé sur le site déployé.
 
 Le navigateur sauvegarde les cases cochées du plan d'action **localement**. Cette sauvegarde ne synchronise pas les tâches entre utilisateurs et ne constitue pas un dossier officiel.
 
