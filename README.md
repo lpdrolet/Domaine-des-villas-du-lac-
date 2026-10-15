@@ -55,3 +55,11 @@ Les géométries proviennent du service public [Cadastre Québec](https://servic
 - Rue 1 800 349 : **2 629,5 m²**; rue 4 889 707 : **9 270,2 m²**. Total : **11 899,7 m²**.
 - Terrains 1 800 348 = **1 571,9 m²** et 1 800 389 = **3 484,2 m²**. Leurs aires totalisent **5 056,1 m²**, près de la superficie inscrite pour chacun dans l'ancien registre du rôle. Cette ancienne superficie est vraisemblablement celle de l'unité d'évaluation regroupée.
 - Les chiffres exacts inscrits au plan cadastral, les actes et permis restent à consulter auprès d’Infolot, des notaires et de la Ville. Ne pas confondre superficie brute avec droits constructibles.
+
+## Contre-vérification du 15 octobre 2026
+
+- La **version primaire** du service SIG cadastral indique **9 août 2026**, et le second service gouvernemental consulté affiche une version historique du **5 octobre 2025** : la consultation en octobre n'en fait pas une édition d'octobre.
+- 18 lots (16 parcelles + 2 rues) concordent entre les deux services à **0,02 m² d'écart géométrique maximum**. Les sources reposent toutes deux sur le cadastre du Québec; ceci ne constitue **pas une preuve légale indépendante**.
+- Le lot **1 800 388** est affecté à Gestion DeniDro dans un ancien registre mais marqué comme **« à reprendre »** dans une autre version. L'attribution actuelle n'est pas validée. Répartition de contrôle : 6 associés au groupe Louis-Philippe + 1 non confirmé + 3 Blue Sports + 6 Viviane/SENC.
+- Une seconde intersection des milieux humides potentiels **sans simplification** donne **8 011,9 m² sur 9 lots**, au lieu des 8 004,0 m² indicatifs antérieurs. Cette surface n'est pas assimilable à une aire légalement non constructible.
+- Les fiches descriptives officielles Infolot, les titres et servitudes, la délimitation biologique et le contrôle municipal restent requis avant prix, acquisitions ou travaux.
