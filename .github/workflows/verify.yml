@@ -1,0 +1,24 @@
+name: Vérification du portail
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntaxe JavaScript
+        run: |
+          node --check assets/data.js
+          node --check assets/geometry.js
+          node --check assets/portal.js
+      - name: Tests de cohérence du site
+        run: node scripts/qa.mjs
