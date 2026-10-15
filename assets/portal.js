@@ -52,7 +52,7 @@ ${metric("Superficie brute",n(totalArea,1)+" m²",n(sqft(totalArea))+" pi²")}
 ${metric("Emprises de rue","2 lots",n(roadArea,1)+" m² au total")}
 ${metric("Réseau de chemin",n(P.totalRoadM,0)+" m","≈400 m existants, longueur exacte à relever")}</div></div>`;
 const steps=section("Stratégie","Les trois décisions à piloter",`<div class="cards-3">
-${card("01","Sécuriser les acquisitions","Établir les droits et décider si l'achat est préférable à une entente de quote-part.","Acquisitions","acquisitions.html",["Titres et bénéficiaires","Lot 388 et historique du 374","Conditions de transaction et fiscalité"])}
+${card("01","Sécuriser les acquisitions","Établir les droits et décider si l'achat est préférable à une entente de quote-part.","Acquisitions","acquisitions.html",["Titres et bénéficiaires","Acte du 388 déclaré détenu et historique du 374","Conditions de transaction et fiscalité"])}
 ${card("02","Compléter la rue","Mesurer le chemin restant, confirmer les normes et établir le vrai devis civil.","Construction","routes.html",["Emprises 1 800 349 et 4 889 707","Projet complet : 854 m","Gravier sans services : acceptabilité à confirmer"])}
 ${card("03","Vendre les terrains","Confirmer le nombre de lots vendables, puis choisir la commercialisation par lot ou en bloc.","Ventes","ventes.html",["15 ventes : objectif","185 000 $ : prix cible, non validé","Analyse nette après coûts et délais"])}
 </div>`);
@@ -92,7 +92,7 @@ return hero("01 · Acquisition","Acheter seulement les droits et lots utiles",
 ${metric("Groupe L.-P. / sociétés",n(groupCount("lp"))+" lots",n(areaBy("lp"),1)+" m²")}
 ${metric("Groupe Viviane / SENC",n(groupCount("viviane"))+" lots",n(areaBy("viviane"),1)+" m²")}
 ${metric("Blue Sports",n(groupCount("blue"))+" lots",n(areaBy("blue"),1)+" m²")}
-${metric("Attribution incertaine",n(groupCount("verifier"))+" lot","1 800 388 · titre à confirmer")}
+${metric("Terrains au total",n(count)+" lots","7 L.-P. + 6 Viviane + 3 Blue")}
 </div>${info("Confidentialité et exactitude","Les groupes ci-dessus servent à organiser le travail. Les titulaires actuels doivent être vérifiés par actes; les données détaillées d'acquisition sont conservées dans le classeur privé.")}`)
 +section("Choix contractuels","Comparer les options avant toute signature",`<div class="cards-3">
 <div class="panel"><div class="num-mark">A</div><h3>Achat conditionnel</h3><p>Acquérir uniquement les lots nécessaires après validation de l'accès, des autorisations, des surfaces et des conditions fiscales.</p><ul><li>Risque de capital immobilisé</li><li>Contrôle plus direct des décisions</li><li>Clause de sortie essentielle</li></ul></div>
@@ -102,7 +102,7 @@ ${metric("Attribution incertaine",n(groupCount("verifier"))+" lot","1 800 388 ·
 +section("Séquence de décision","Les cinq contrôles préalables",`<div class="lined-list">
 ${line("1. Titres et pouvoirs de signer","Confirmer chaque détenteur inscrit et toute procuration ou décision d'associés requise.")}
 ${line("2. Emprises et servitudes","Distinguer les rues 349 et 4 889 707, leur titulaire, les accès et les obligations d'entretien.")}
-${line("3. Lots atypiques","Lot 348 : scénario de regroupement/cession; lot 388 : titulaire; lot 374 : historique cadastral.")}
+${line("3. Lots atypiques","Lot 348 : regroupement/cession à étudier; lot 388 : acte à classer; lot 374 : historique cadastral.")}
 ${line("4. Évaluation conditionnelle","1,50 $/pi² demeure une hypothèse maximale d'achat, pas un prix offert ou reconnu par un vendeur.")}
 ${line("5. Fiscalité et entente","Faire valider l'entité acquéreuse, TPS/TVQ, financement, répartitions et pertes fiscales admissibles par des professionnels.")}
 </div><div style="margin-top:22px">${cta("Inventaire cadastral","terrains.html")} ${cta("Voir la feuille de route","documents.html#actions","light")}</div>`);
@@ -178,7 +178,7 @@ return hero("Inventaire · 16 lots","Le cadastre vérifié, terrain par terrain"
 ${metric("Ensemble résidentiel",n(totalArea,1)+" m²",n(sqft(totalArea))+" pi²")}
 ${metric("Groupe L.-P.",n(groupCount("lp"))+" lots",n(totalBy("lp"),1)+" m²")}
 ${metric("Autres groupes",n(groupCount("viviane")+groupCount("blue"))+" lots","Groupe Viviane + Blue Sports")}
-${metric("Attribution à confirmer","1 lot","Lot 1 800 388")}
+${metric("Lots du projet",n(count)+" lots","7 L.-P. · 6 Viviane · 3 Blue")}
 </div>${info("Précision et limites",H(notePublic))}`)
 +section("Recherche","Explorer, trier et exporter les parcelles",`
 <div class="toolbar"><div class="field"><label for="lot-search">Rechercher un numéro</label><input id="lot-search" placeholder="Ex. 1 800 348" autocomplete="off"></div>
@@ -196,7 +196,7 @@ function renderLot(){
 const id=new URLSearchParams(location.search).get("id");
 const x=D.lots.find(v=>v.id===id);
 if(!x)return hero("Inventaire","Terrain introuvable","Ce numéro ne correspond à aucun des 16 lots suivis.")+section("Retour","Consulter les terrains",cta("Retour à l'inventaire","terrains.html"));
-const special=x.id==="1800348"?"Une fusion, cession ou autre solution foncière peut être nécessaire compte tenu de sa taille, sans présumer d'une obligation réglementaire.":x.id==="1800388"?"Le titulaire actuel doit être confirmé. Une ancienne attribution cadastrale et le registre révisé sont contradictoires.":x.note;
+const special=x.id==="1800348"?"Une fusion, cession ou autre solution foncière peut être nécessaire compte tenu de sa taille, sans présumer d'une obligation réglementaire.":x.id==="1800388"?"Terrain déjà détenu selon la déclaration du propriétaire du 15 octobre 2026; acte à classer pour confirmer le titulaire légal exact.":x.note;
 return hero("Fiche de lot","Terrain "+x.label,
 "Caractéristiques géométriques vérifiées sur deux services de diffusion cadastrale. Les superficies légales, le propriétaire actuel et les droits de construction doivent encore être confirmés.")
 +section("Données SIG","Caractéristiques géométriques",`<div class="cards-4">
@@ -293,10 +293,10 @@ const mapMain=()=>`<section class="page-hero"><div class="wrap"><div class="crum
 <section class="section-block"><div class="wrap">
 <div class="cards-2 map-layout">
 <div class="panel"><div id="cadastral-map" role="region" aria-live="polite" aria-label="Carte SIG indicative"><p>Préparation des géométries cadastrales locales…</p></div></div>
-<div class="panel"><h3>Légende</h3><div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#ddae66;border-radius:4px"></span> Groupe L.-P.</span><strong>6 lots</strong></div>
+<div class="panel"><h3>Légende</h3><div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#ddae66;border-radius:4px"></span> Groupe L.-P.</span><strong>7 lots</strong></div>
 <div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#83b5ab;border-radius:4px"></span> Viviane / SENC</span><strong>6 lots</strong></div>
 <div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#8ca9d1;border-radius:4px"></span> Blue Sports</span><strong>3 lots</strong></div>
-<div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#d6aed1;border-radius:4px"></span> Attribution à vérifier</span><strong>1 lot</strong></div>
+
 <div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#a7bec8;border-radius:4px"></span> Emprises de rue</span><strong>2 lots</strong></div>
 <div class="warning info"><strong>Lecture de la carte</strong><p>Les limites et dimensions proviennent du cadastre graphique. Cliquer sur un lot pour consulter sa fiche. Les propriétaires restent à confirmer par titres.</p></div>
 <a class="button light" href="terrains.html">Inventaire en tableau</a></div></div>
