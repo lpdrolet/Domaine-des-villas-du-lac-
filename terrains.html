@@ -1,7 +1,21 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Terrains | Domaine des Villas du Lac</title><link rel="icon" href="assets/logo.svg"><link rel="stylesheet" href="assets/styles.css"><script src="assets/data.js"></script><script src="assets/app.js" defer></script></head><body><div data-site-header></div><main>
-<section class="page-hero"><div class="container"><div class="breadcrumbs"><a href="index.html">Accueil</a> / Terrains</div><div class="eyebrow">Inventaire cadastral</div><h1>Terrains et propriétaires</h1><p class="lead">Inventaire de travail des lots reliés au projet. Les informations du rôle municipal sont séparées des corrections et attributions fournies à l’interne.</p></div></section>
-<section class="section" id="inventaire"><div class="container"><div class="notice"><strong>À retenir :</strong> Le tableau public couvre maintenant 16 lots résidentiels identifiés au cadastre du Québec et 2 lots de rue distincts (1 800 349 et 4 889 707). Le registre de contrôle comporte 48 lots incluant les voisins. Les superficies affichées sont calculées sur les géométries SIG d'octobre 2026 : elles ne sont pas des mesures de bornage ou une garantie de constructibilité. Un ancien chiffre du rôle pouvait couvrir plusieurs lots (notamment 348+389). Le lot 1 800 374 n'est pas retrouvé dans cette couche. L'attribution des terrains aux partenaires reste à valider par actes.</div><div class="filters"><button class="filter-btn active" data-filter="all">Tous</button><button class="filter-btn" data-filter="viviane">Viviane</button><button class="filter-btn" data-filter="societe">Société Villa Deauville</button><button class="filter-btn" data-filter="blue">Blue Sports</button><button class="filter-btn" data-filter="lp">Groupe Louis-Philippe / Carden</button><button class="filter-btn" data-filter="verifier">Propriété à confirmer</button></div><div class="lot-grid" id="lotGrid"></div></div></section>
-<section class="section alt"><div class="container"><div class="section-head"><div><div class="eyebrow">Contrôle</div><h2>Tableau consolidé</h2></div><p>Ce tableau est destiné au pilotage du projet. Pour une vente, les titres du registre foncier et un plan d’arpentage priment.</p></div><div class="table-wrap"><table><thead><tr><th>Lot</th><th>Groupe</th><th>Propriétaire au rôle</th><th>Superficie</th><th>Bordure de rue SIG*</th><th>Valeur d'unité au rôle (historique)</th><th>Statut</th></tr></thead><tbody id="lotTable"></tbody></table></div></div></section>
-</main><div data-site-footer></div><script>
-function render(filter='all'){const lots=DOMAIN_DATA.lots.filter(x=>filter==='all'||x.category===filter);document.querySelector('#lotGrid').innerHTML=lots.map(x=>`<a class="lot-card" href="lot.html?id=${x.id}"><span class="badge ${badgeClass(x.status)}">${x.status}</span><div class="lot-number mt-2">Lot ${x.label}</div><div class="owner">${x.group}</div><div class="subowner">${x.holder}</div><div class="stats"><div class="stat"><b>${sqft(x.sqft)}</b><span>surface cadastrale SIG (indicative)</span></div><div class="stat"><b>${x.sqft?acres(x.sqft):'À valider'}</b><span>acres</span></div><div class="stat"><b>${money(x.assessment)}</b><span>valeur terrain au rôle</span></div><div class="stat"><b>${x.frontage?num(x.frontage,2)+' m':'À valider'}</b><span>bordure de rue SIG (indicative)</span></div></div><span class="btn small secondary">Ouvrir la fiche</span></a>`).join('');}
-document.addEventListener('DOMContentLoaded',()=>{render();document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.filter)}));document.querySelector('#lotTable').innerHTML=DOMAIN_DATA.lots.map(x=>`<tr><td><a href="lot.html?id=${x.id}"><b>${x.label}</b></a></td><td>${x.group}</td><td>${x.ownerRole}</td><td class="num">${sqft(x.sqft)}</td><td class="num">${x.frontage?num(x.frontage,2)+' m':'À valider'}</td><td class="num">${money(x.assessment)}</td><td><span class="badge ${badgeClass(x.status)}">${x.status}</span></td></tr>`).join('');});</script></body></html>
+<!doctype html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0d2b43">
+<meta name="robots" content="noindex,nofollow">
+<title>Les terrains | Domaine des villas du lac</title>
+<meta name="description" content="Inventaire SIG indicatif des seize terrains et deux emprises de rue.">
+<link rel="icon" type="image/webp" href="assets/domaine-logo.webp">
+<link rel="stylesheet" href="assets/portal.css?v=20261015v2">
+<script src="assets/data.js?v=20261015v2" defer></script>
+<script src="assets/portal.js?v=20261015v2" defer></script>
+</head>
+<body class="portal" data-page="terrains">
+<div id="site-header"></div>
+<main id="site-content" tabindex="-1"></main>
+<div id="site-footer"></div>
+<noscript><div style="padding:24px;text-align:center">JavaScript est requis pour afficher le tableau de bord. Les sources cadastrales et les données du projet sont disponibles sur le dépôt GitHub.</div></noscript>
+</body>
+</html>
