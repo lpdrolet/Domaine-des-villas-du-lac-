@@ -1,0 +1,39 @@
+/* Pilotage du projet — complément au style existant */
+.dashboard-hero{background:linear-gradient(135deg,#071d36,#133a55);padding:70px 0 86px;color:#eef3f7}
+.dashboard-hero h1,.dashboard-hero h2{color:#fff}
+.dashboard-hero .lead{color:#cddbe5}
+.dashboard-hero .eyebrow{color:#e0b469}
+.dashboard-hero .disclaimer{color:#cddbe5}
+.dashboard-hero .btn.secondary{background:transparent;color:#fff;border-color:#9ab7c5}
+.dashboard-hero .btn.primary{background:#fff;color:#06264a;border-color:#fff}
+.dashboard-kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:-42px;position:relative}
+.dashboard-kpi .card{padding:20px}
+.dashboard-kpi strong{display:block;font-size:1.85rem;color:#06264a}
+.dashboard-kpi span{font-size:.82rem;color:#657284}
+.stage-number{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:11px;background:#f5ead4;color:#976513;font-weight:900;margin-bottom:14px}
+.stage-card{border-top:4px solid #b98a39}
+.stage-card h3{font-size:1.48rem}
+.stage-card ul{padding-left:20px;line-height:1.7;color:#405269}
+.stage-card li{margin-bottom:5px}
+.status-pill{display:inline-block;border-radius:999px;padding:4px 10px;font-size:.76rem;font-weight:750;background:#fff0d8;color:#805900}
+.status-pill.verified{background:#e7f5ec;color:#226648}
+.status-pill.todo{background:#eaf0f5;color:#3b5874}
+.project-steps{display:grid;gap:12px}
+.project-step{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:17px 19px;border:1px solid #e1e6e9;border-radius:12px;background:#fff}
+.project-step p{margin:4px 0 0;color:#657284;font-size:.87rem}
+.project-step h3{font:700 1rem Inter,ui-sans-serif,sans-serif;margin:0}
+.project-step .status-pill{text-align:center}
+.decision-table th{background:#eaf0f4}
+.metric-emphasis{font-size:1.55rem;color:#06264a;font-weight:800}
+.warning-line{padding:16px 20px;border-radius:12px;border:1px solid #e4d6bd;background:#fffaf2}
+.progress-track{height:14px;display:flex;border-radius:999px;overflow:hidden;background:#e8ebed}
+.progress-track .built{background:#256b65;flex:400}
+.progress-track .remaining{background:#c89c4e;flex:454}
+.meter-legend{display:flex;justify-content:space-between;gap:12px;font-size:.85rem;color:#4b5a6a;margin-top:8px}
+.stat-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.stat-cards .card strong{display:block;font-size:1.9rem;color:#06264a}
+.checklist{margin:0;padding-left:21px;color:#495d6f}
+.checklist li{margin:0 0 12px}
+.article-intro{max-width:780px}
+@media(max-width:900px){.dashboard-kpi{grid-template-columns:repeat(2,1fr)}.stat-cards{grid-template-columns:1fr}.project-step{grid-template-columns:1fr;gap:8px}}
+@media(max-width:520px){.dashboard-kpi{gap:8px}.dashboard-kpi .card{padding:13px}.dashboard-kpi strong{font-size:1.35rem}.dashboard-hero{padding:52px 0 72px}.project-step{padding:15px}.meter-legend{font-size:.72rem}}

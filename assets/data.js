@@ -1,5 +1,5 @@
 window.DOMAIN_DATA = {
-  updated: "30 août 2026",
+  updated: "15 octobre 2026",
   project: {
     name: "Domaine des Villas du Lac",
     location: "Rue des Villas, secteur Deauville, Sherbrooke (Québec)",
@@ -7,6 +7,10 @@ window.DOMAIN_DATA = {
     rawPricePerSqft: 1.50,
     roadPhaseA: 522.606,
     roadTotal: 854.295,
+    roadExistingApprox: 400,
+    roadRemainingCalculatedApprox: 454.295,
+    roadRemainingBudget: 478,
+    roadLengthVariance: 23.705,
     roadCostPerM: 800,
     roadCostLowPerM: 500,
     roadCostHighPerM: 1100,
@@ -17,8 +21,8 @@ window.DOMAIN_DATA = {
     studies: 100000,
     contingency: 0.15,
     developedLotPrice: 185000,
-    externalAcquisitionCost: 500000,
-    externalLotsToAcquire: 8,
+    externalAcquisitionCost: null, // Montant de négociation confidentiel / non confirmé
+    externalLotsToAcquire: null, // À vérifier aux titres, ne pas traiter comme confirmé
     saleFees: 0.05,
     capitalRate: 0.08,
     durationYears: 3
