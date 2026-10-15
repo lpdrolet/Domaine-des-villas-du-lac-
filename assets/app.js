@@ -3,7 +3,7 @@
   const inLots = false;
   const prefix = '';
   const nav = [
-    ['index.html','Accueil'],['terrains.html','Terrains'],['routes.html','Routes'],['finances.html','Plan d’affaires'],['documents.html','Documents']
+    ['index.html','Tableau de bord'],['acquisitions.html','01 · Acquisition'],['routes.html','02 · Rue'],['ventes.html','03 · Ventes'],['terrains.html','Registre'],['documents.html','Documents']
   ];
   const activeFile = path==='lot.html' ? 'terrains.html' : path;
   const header = `
@@ -11,11 +11,11 @@
     <header class="site-header"><div class="container nav-wrap">
       <a class="brand" href="${prefix}index.html"><img src="${prefix}assets/domaine-logo.webp" alt="Logo Domaine des Villas du Lac"><div class="brand-title">DOMAINE <span>DES VILLAS DU LAC</span></div></a>
       <button class="menu-btn" aria-label="Ouvrir le menu">Menu</button>
-      <nav class="nav">${nav.map(([href,label])=>`<a class="${activeFile===href?'active':''}" href="${prefix}${href}">${label}</a>`).join('')}<a class="cta" href="${prefix}terrains.html#inventaire">Inventaire</a></nav>
+      <nav class="nav">${nav.map(([href,label])=>`<a class="${activeFile===href?'active':''}" href="${prefix}${href}">${label}</a>`).join('')}<a class="cta" href="${prefix}finances.html">Scénarios</a></nav>
     </div></header>`;
   const footer = `<footer class="footer"><div class="container"><div class="footer-grid">
-    <div><a class="brand" href="${prefix}index.html"><img src="${prefix}assets/domaine-logo.webp" alt="Logo Domaine des Villas du Lac"><div class="brand-title">DOMAINE <span>DES VILLAS DU LAC</span></div></a><p>Plateforme de travail pour structurer la décision de vente ou de développement des terrains de la rue des Villas.</p></div>
-    <div><h4>Projet</h4><a href="${prefix}terrains.html">Terrains</a><a href="${prefix}routes.html">Construction des routes</a><a href="${prefix}finances.html">Scénarios financiers</a></div>
+    <div><a class="brand" href="${prefix}index.html"><img src="${prefix}assets/domaine-logo.webp" alt="Logo Domaine des Villas du Lac"><div class="brand-title">DOMAINE <span>DES VILLAS DU LAC</span></div></a><p>Tableau de bord du projet : acquisitions, route à compléter et ventes.</p></div>
+    <div><h4>Trois piliers</h4><a href="${prefix}acquisitions.html">01 · Acquisition</a><a href="${prefix}routes.html">02 · Construction de la rue</a><a href="${prefix}ventes.html">03 · Ventes des terrains</a></div>
     <div><h4>Diligence</h4><a href="${prefix}documents.html">Documents</a><a href="${prefix}documents.html#sources">Sources</a><a href="${prefix}documents.html#actions">Actions à valider</a></div>
     <div><h4>Statut</h4><p>Données préliminaires. Les titres, superficies, droits de passage, contraintes environnementales et permis doivent être confirmés avant une transaction ou des travaux.</p></div>
   </div><div class="footer-bottom"><span>© 2026 Domaine des Villas du Lac</span><span>Document de travail — non destiné à constituer un avis juridique, fiscal ou d’ingénierie.</span></div></div></footer>`;
