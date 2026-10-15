@@ -19,10 +19,17 @@ Site statique du développement immobilier de la rue des Villas, secteur Deauvil
 | Réseau complet | 854,295 m | Tracé historique des 3 tronçons |
 | Déjà construit | environ 400 m | Information du propriétaire, approximative |
 | Restant théorique | environ 454 m | 854 - 400, résultat approximatif |
-| Restant à budgéter | 478 m | Consigne de travail du propriétaire, à confirmer |
+| Annonce historique travaux | 478 m | Hypothèse non mesurée, à ne pas retenir comme longueur du chantier |
 | Lots commercialisés visés | 15 | Objectif, non nombre légalement constructible |
 
 Écart de 24 m entre reste théorique et reste budgété. Les tronçons A (223 m) et B (229 m) additionnent 452 m et présentent un autre écart de 26 m par rapport aux 478 m annoncés. Un plan et un mesurage d'arpentage doivent trancher.
+
+## Correction des deux emprises routières
+
+- Rue cadastrée sous le lot **1 800 349** : 11 897 m² déclarés à l’ancien rôle municipal; aucune limite certifiée ici.
+- Deuxième emprise : lot **4 889 707**. Sa superficie et sa façade sont **inconnues** : ne pas copier la valeur du lot 1 800 349.
+- Ancien tronçon A (223 m) + B (229 m) = **452 m**, et non 478 m. La différence 854 − environ 400 = environ 454 m reste indicative.
+- Aucun de ces nombres ne remplace un relevé du tronçon à construire ni la validation municipale du statut de la rue.
 
 ## Données de base, limites et confidentialité
 
