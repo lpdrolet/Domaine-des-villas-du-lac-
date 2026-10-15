@@ -48,5 +48,5 @@ window.DOMAIN_DATA = {
     {"id":"1800389","label":"1 800 389","ownerRole":"DROLET LOUIS-PHILIPPE","group":"Groupe Louis-Philippe","holder":"Groupe associé au projet","sqm":3484.2,"sqft":37503.62,"frontage":76.1,"assessment":null,"roleSqft":null,"status":"Sous réserve","category":"lp","address":"Rue projetée","note":"Mesure SIG 2026 indicative. Constructibilité, titre et limites exactes à vérifier."}
   ],
   roadLots:[{id:"1800349",label:"1 800 349",sqm:2629.5,measurementStatus:"Calcul SIG 2026, non bornage"}, {id:"4889707",label:"4 889 707",sqm:9270.2,measurementStatus:"Calcul SIG 2026, non bornage"}],
-  roadLot:{id:"1800349",label:"1 800 349",ownerRole:"SOCIETE VILLA DEAUVILLE SENC",sqm:2629.5,sqft:28303.90,frontage:null,assessment:null,note:"Emprise de rue. Non vendable comme terrain résidentiel."}
+  roadLot:{id:"1800349",label:"1 800 349",ownerRole:"SOCIETE VILLA DEAUVILLE SENC",sqm:2629.5,sqft:28303.70,frontage:null,assessment:null,note:"Emprise de rue. Non vendable comme terrain résidentiel."}
 };
