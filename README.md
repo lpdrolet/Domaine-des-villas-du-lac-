@@ -35,7 +35,7 @@ La version primaire du service cadastral est datée du **9 août 2026**; le 15 o
 
 La couche provinciale de milieux humides **potentiels** recoupe 9 lots sur environ 8 011,9 m². Il ne s'agit pas d'une aire réglementaire réputée inconstructible. Ne pas publier la superposition lot par lot sans évaluer le contexte.
 
-L'ancien rôle a très probablement regroupé les lots 1 800 348 et 1 800 389 sous une même unité; leurs superficies géométriques individuelles sont respectivement 1 571,9 m² et 3 484,2 m². L'ancien rôle a aussi regroupé les deux emprises de rue. Le lot 1 800 374 n'est pas retrouvé dans la couche cadastrale actuelle. L'attribution actuelle du lot 1 800 388 n'est pas confirmée.
+L'ancien rôle a très probablement regroupé les lots 1 800 348 et 1 800 389 sous une même unité; leurs superficies géométriques individuelles sont respectivement 1 571,9 m² et 3 484,2 m². L'ancien rôle a aussi regroupé les deux emprises de rue. Le lot 1 800 374 n'est pas retrouvé dans la couche cadastrale actuelle. Le lot 1 800 388 est déclaré déjà détenu par le porteur du projet (15 octobre 2026); acte de propriété à conserver au dossier pour confirmer le titulaire légal exact.
 
 ## Niveau de confidentialité
 
@@ -50,7 +50,7 @@ Le site doit être traité comme un outil de présentation et de pilotage public
 ## Livrables à obtenir
 
 - Fiches Infolot détaillées des 16 terrains et 2 rues, et historique du lot 374.
-- Titres actuels, servitudes et clarification du lot 388.
+- Titres actuels, servitudes et acte du lot 388 déclaré déjà détenu.
 - Résolution et plans du projet historique de Deauville.
 - Réponse écrite de Sherbrooke concernant le statut de la rue, les normes, la possibilité de gravier et les contraintes municipales.
 - Mesurage de la rue existante et du prolongement, caractérisation environnementale et plans de génie civil.
@@ -74,3 +74,7 @@ Le dépôt est compatible avec un hébergement statique. Les changements sur Git
 ## Contrôle qualité automatisé
 
 Le workflow `.github/workflows/verify.yml` s'exécute à chaque push sur `main` et sur les demandes de fusion. Son script `scripts/qa.mjs` vérifie les neuf pages, les liens vers les ressources, la syntaxe JS, les 16 lots, les 2 emprises, les 14 tâches, les contours SIG locaux, les filtres et les calculatrices. **Un contrôle de code réussi n'atteste pas que Netlify a publié le commit.**
+
+## Rectification propriétaire — 15 octobre 2026
+
+Selon confirmation du porteur du projet, le lot **1 800 388 appartient déjà à son groupe**. Répartition de travail : **7 terrains groupe Louis-Philippe / sociétés associées, 6 Viviane / Société Villa Deauville, 3 Blue Sports = 16 terrains résidentiels**. Les deux emprises routières sont exclues. Le modèle conserve **15 ventes prévues sur 16 terrains** à titre d'hypothèse, compte tenu notamment du sort du lot 1 800 348. La déclaration de détention est distincte de la vérification du titulaire légal inscrit.
