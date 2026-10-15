@@ -1,6 +1,6 @@
 /* Données publiques de pilotage. Les propriétaires juridiques, les offres et les finances détaillées sont volontairement exclus du dépôt public. */
 window.DOMAIN_DATA = {
-  "updated": "15 octobre 2026",
+  "updated": "15 octobre 2026 — lot 1 800 388 déclaré déjà détenu",
   "version": "Révision du plan et des données — 15/10/2026",
   "sourceDate": "9 août 2026 (diffusion cadastrale primaire)",
   "project": {
@@ -18,7 +18,11 @@ window.DOMAIN_DATA = {
     "wetlandsPotentialLots": 9,
     "zoningCentroid": "PRA1589",
     "approval": "Projet historique évoqué, résolution originale non obtenue",
-    "updated": "2026-10-15"
+    "updated": "2026-10-15",
+    "currentHoldingLots": 7,
+    "otherGroupLots": 9,
+    "residentialLots": 16,
+    "salesTargetExplanation": "15 ventes budgétées sur 16 lots cadastrés; vérifier le sort du petit lot 1 800 348 et les autorisations."
   },
   "groups": {
     "lp": "Groupe L.-P. et sociétés liées",
@@ -69,8 +73,8 @@ window.DOMAIN_DATA = {
       "area": 3484.2,
       "perimeter": 243.9,
       "roadContact": 45.7,
-      "group": "verifier",
-      "note": "Attribution à confirmer par titre; ancienne indication contradictoire."
+      "group": "lp",
+      "note": "Propriété déclarée par le porteur du projet le 15 octobre 2026; acte à classer pour confirmer le titulaire légal."
     },
     {
       "id": "1800389",
@@ -209,9 +213,9 @@ window.DOMAIN_DATA = {
       "id": "A3",
       "phase": "01",
       "priority": "P0",
-      "title": "Établir la situation du lot 1 800 388 et l'historique du 1 800 374",
+      "title": "Classer l'acte du lot 1 800 388 déclaré déjà détenu et retracer le lot 1 800 374",
       "owner": "Notaire / arpenteur",
-      "status": "Non commencé"
+      "status": "Détention déclarée; pièce officielle à classer"
     },
     {
       "id": "A4",
