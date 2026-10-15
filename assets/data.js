@@ -9,8 +9,8 @@ window.DOMAIN_DATA = {
     roadTotal: 854.295,
     roadExistingApprox: 400,
     roadRemainingCalculatedApprox: 454.295,
-    roadRemainingBudget: 478,
-    roadLengthVariance: 23.705,
+    roadRemainingBudget: null, // Ancienne mesure 478 m invalide comme métrage des travaux
+    roadLengthVariance: null, // Mesures réelles des travaux à vérifier
     roadCostPerM: 800,
     roadCostLowPerM: 500,
     roadCostHighPerM: 1100,
@@ -40,5 +40,6 @@ window.DOMAIN_DATA = {
     {id:"1800394",label:"1 800 394",ownerRole:"LES INDUSTRIES CARDEN INC.",group:"Industries Carden",holder:"Industries Carden inc. — groupe Louis-Philippe",sqm:3483.9,sqft:37500.3875,frontage:45.72,assessment:70400,roleSqft:1.8773,status:"Sous réserve",category:"lp",address:"Rue projetée",note:"Terrain identifié au rôle au nom d’Industries Carden inc.; inclus au groupe projet selon l’information interne."},
     {id:"1800395",label:"1 800 395",ownerRole:"À confirmer au rôle / registre foncier",group:"Louis-Philippe",holder:"Louis-Philippe Drolet — information interne",sqm:null,sqft:null,frontage:null,assessment:null,roleSqft:null,status:"Validation requise",category:"lp",address:"À confirmer",note:"Propriété indiquée dans le dossier interne. La recherche publique doit être reprise pour confirmer superficie, valeur et constructibilité."}
   ],
+  roadLots:[{id:"1800349",label:"1 800 349",sqm:11897,measurementStatus:"Rôle municipal, non mesurage cadastral"}, {id:"4889707",label:"4 889 707",sqm:null,measurementStatus:"Inconnue, aucune superficie à inventer"}],
   roadLot:{id:"1800349",label:"1 800 349",ownerRole:"SOCIETE VILLA DEAUVILLE SENC",sqm:11897,sqft:128058.2422,frontage:32.31,assessment:100,note:"Emprise de rue. Non vendable comme terrain résidentiel."}
 };
