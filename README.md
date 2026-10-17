@@ -1,7 +1,7 @@
 # Domaine des villas du lac — Pilotage du développement
 
 Site statique de suivi du projet de Deauville à Sherbrooke, au Québec.
-Révision fonctionnelle et cadastrale : **15 octobre 2026**.
+Révision fonctionnelle et cadastrale : **17 octobre 2026**.
 
 ## Les trois piliers
 
@@ -9,7 +9,7 @@ Révision fonctionnelle et cadastrale : **15 octobre 2026**.
 2. **Construction de la rue** : deux emprises distinctes, chemin existant, prolongement à mesurer, autorisations et devis.
 3. **Ventes** : capacité légale de vendre, dossiers acheteurs, prix comparables et scénarios de commercialisation.
 
-Pages : `index.html`, `acquisitions.html`, `routes.html`, `ventes.html`, `terrains.html`, `carte.html`, `lot.html`, `finances.html`, `documents.html`.
+Pages : `index.html`, `revue.html`, `acquisitions.html`, `routes.html`, `ventes.html`, `terrains.html`, `carte.html`, `lot.html`, `finances.html`, `documents.html`.
 
 Le portail commun est dans `assets/portal.js`, la présentation dans `assets/portal.css` et les données non sensibles dans `assets/data.js`.
 
@@ -18,10 +18,10 @@ Le portail commun est dans `assets/portal.js`, la présentation dans `assets/por
 | Variable | Valeur | Fiabilité |
 | --- | ---: | --- |
 | Terrains candidats identifiés | 16 | Concordance graphique, non constructibilité |
-| Superficie graphique résidentielle | 65 315,1 m² / env. 703 046 pi² | Polygones cadastraux |
-| Lot de rue 1 800 349 | 2 629,5 m² | Mesure SIG |
-| Lot de rue 4 889 707 | 9 270,2 m² | Mesure SIG |
-| Superficie des deux rues | 11 899,7 m² | Mesure SIG |
+| Superficie graphique résidentielle | 65 311,966 m² / env. 703 012 pi² | Polygones cadastraux |
+| Lot de rue 1 800 349 | 2 629,327 m² | Mesure SIG |
+| Lot de rue 4 889 707 | 9 269,712 m² | Mesure SIG |
+| Superficie des deux rues | 11 899,039 m² | Mesure SIG |
 | Réseau historique complet | 854,295 m | Tracé SIG ancien |
 | Rue déjà construite | env. 400 m | Déclaration à arpenter |
 | Reste théorique | env. 454 m | Calcul, non métrage de travaux |
