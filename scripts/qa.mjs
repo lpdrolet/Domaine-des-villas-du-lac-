@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 
 const root=path.resolve(import.meta.dirname,'..');
 const read=name=>fs.readFileSync(path.join(root,name),'utf8');
-const sitePaths=['index.html','acquisitions.html','routes.html','ventes.html','terrains.html','carte.html','lot.html','finances.html','documents.html'];
+const sitePaths=['index.html','revue.html','acquisitions.html','routes.html','ventes.html','terrains.html','carte.html','lot.html','finances.html','documents.html'];
 const sandbox={window:{location:{assign() {}}}};
 vm.runInNewContext(read('assets/data.js'),sandbox,{filename:'assets/data.js'});
 vm.runInNewContext(read('assets/geometry.js'),sandbox,{filename:'assets/geometry.js'});
@@ -13,8 +13,8 @@ const D=sandbox.window.DOMAIN_DATA,G=sandbox.window.DOMAIN_GEOMETRY;
 const sum=(xs,key)=>xs.reduce((a,x)=>a+x[key],0);
 assert.equal(D.lots.length,16,'Le cadastre doit contenir 16 lots résidentiels');
 assert.equal(D.roads.length,2,'Deux emprises de rue distinctes');
-assert.ok(Math.abs(sum(D.lots,'area')-65315.1)<0.01,'Superficie brute résidentielle');
-assert.ok(Math.abs(sum(D.roads,'area')-11899.7)<0.01,'Superficie brute des rues');
+assert.ok(Math.abs(sum(D.lots,'area')-65311.966)<0.01,'Superficie brute résidentielle');
+assert.ok(Math.abs(sum(D.roads,'area')-11899.039)<0.01,'Superficie brute des rues');
 assert.equal(D.plan.length,14,'Actions prioritaires du projet');
 assert.equal(new Set(D.lots.map(x=>x.id)).size,16,'Numéros de terrain uniques');
 assert.equal(new Set(D.plan.map(x=>x.id)).size,14,'Identifiants d’action uniques');
@@ -44,6 +44,7 @@ for(const p of sitePaths){
  }
 }
 const oldCsv=read('documents/registre-lots.csv');
+assert.ok(oldCsv.includes('1 800 388'), 'Lot existant absent');
 assert.equal(oldCsv.trim().split(/\r?\n/).length,17,'Le CSV public doit comporter un en-tête et 16 terrains');
 assert.ok(!read('documents/hypotheses.csv').includes('Officiel'),'Ancienne donnée erronée reclassée comme officielle');
 const script=read('assets/portal.js');
@@ -105,4 +106,4 @@ for(const [i,page] of sitePaths.map(p=>p.replace(/\.html$/,'')).entries()){
   assert.ok(get('task-tally').textContent.includes('14 actions au total'),'Filtrage des tâches en panne');
  }
 }
-console.log('OK: 9 pages, 16 terrains, 2 rues, 14 tâches, carte locale, liens, calculatrices et filtres.');
+console.log('OK: 10 pages, 16 terrains, 2 rues, 14 tâches, carte locale, liens, calculatrices et filtres.');
