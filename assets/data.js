@@ -31,9 +31,9 @@ window.DOMAIN_DATA = {
     "precision": "Superficies graphiques recalculées; Infolot, titres fonciers, droits et constructibilité non certifiés"
   },
   "groups": {
-    "lp": "Groupe L.-P. et sociétés liées",
-    "viviane": "Groupe Viviane / Société Villa Deauville",
-    "blue": "Blue Sports",
+    "lp": "Portefeuille A",
+    "viviane": "Portefeuille B",
+    "blue": "Portefeuille C",
     "verifier": "Attribution à confirmer"
   },
   "lots": [
