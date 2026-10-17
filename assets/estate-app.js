@@ -62,7 +62,7 @@ function mapPage(){
  section("Vue géographique","Carte interactive des parcelles",'<div class="cols-2" style="grid-template-columns:minmax(0,2fr) minmax(290px,1fr)"><div>'+mapBlock("full-map")+'</div><div class="panel"><h3>Rechercher un terrain</h3><div class="field"><label for="q">Numéro</label><input id="q" placeholder="Ex. 1800388"></div><div class="field" style="margin-top:13px"><label for="status">Statut</label><select id="status"><option value="all">Tous</option><option value="a_confirmer">Étude en cours</option><option value="disponible">Disponible</option><option value="reserve">Réservé</option><option value="vendu">Vendu</option></select></div><div class="field" style="margin-top:13px"><label for="area">Surface</label><select id="area"><option value="all">Toutes</option><option value="small">Moins de 35 000 pi²</option><option value="medium">35–45 000 pi²</option><option value="large">Plus de 45 000 pi²</option></select></div><div class="field" style="margin-top:13px"><label for="price">Prix</label><select id="price"><option value="all">Tous</option><option value="known">Prix affiché</option><option value="unknown">Sur demande</option></select></div><p class="tiny" id="lot-result" style="margin-top:14px">16 terrains</p><div class="feature"><span>Terrain déjà détenu par groupe</span><span class="map-dot" style="background:#cdac71"></span></div><div class="feature"><span>Groupe Viviane (à confirmer)</span><span class="map-dot" style="background:#4b9485"></span></div><div class="feature"><span>Blue Sports (à confirmer)</span><span class="map-dot" style="background:#6f9ec0"></span></div><p class="tiny">Les groupes sont des attributions de travail, pas un certificat de titre.</p></div></div><div class="lot-grid" id="lots-grid" style="display:none"></div>');
 }
 function oneLot(){
- const id=(new URLSearchParams(location.search).get("id")||"").replace(/\s/g,"");const l=getLot(id);
+ const id=(new URLSearchParams(location.search).get("id")||(location.pathname.match(/\d{7}/)||[])[0]||"").replace(/\s/g,"");const l=getLot(id);
  if(!l)return hero("Terrain","Terrain non trouvé","Vérifiez le numéro de lot.")+section("Inventaire","Autres terrains",btn("Tous les terrains","terrains.html"));
  document.title="Lot "+l.label+" | Domaine des villas du lac";
  const google=M.satelliteLink(l.id);
@@ -130,7 +130,7 @@ function client(){
 function clientFaves(){let fav=[];try{fav=JSON.parse(localStorage.getItem("domaine.favorites.v1")||"[]")}catch{}const items=lots.filter(l=>fav.includes(l.id));$("#favorites-grid").innerHTML=items.length?items.map(lotCard).join(""):'<div class="panel" style="grid-column:1/-1">Aucun favori pour le moment. <a class="mini-link" href="terrains.html">Voir les terrains →</a></div>';}
 async function publicOverrides(){
  try{const res=await fetch("/api/estate-lots",{credentials:"same-origin",signal:AbortSignal.timeout(4500)});if(!res.ok)return;const json=await res.json();if(!json||!Array.isArray(json.overrides))return;
- for(const item of json.overrides){const lot=getLot(item.id);if(!lot)continue;for(const key of ["description","price","status","publishPrice","image","gallery","zoning","dimensions","services","highlights"]){if(Object.prototype.hasOwnProperty.call(item,key))lot[key]=item[key]}}
+ for(const item of json.overrides){let lot=getLot(item.id);if(!lot && item.custom && /^\d{7}$/.test(String(item.id)) && Number(item.area)>0){lot={id:item.id,label:String(item.id).replace(/^(\d)(\d{3})(\d{3})$/,"$1 $2 $3"),area:Number(item.area),group:"verifier",perimeter:0,roadContact:0,status:"a_confirmer",custom:true};lots.push(lot);}if(!lot)continue;for(const key of ["description","price","status","publishPrice","image","gallery","zoning","dimensions","services","highlights","custom","lat","lon"]){if(Object.prototype.hasOwnProperty.call(item,key))lot[key]=item[key]}}
  }catch(e){/* Static data fallback by design */ }
 }
 function bindMenu(){const btn=$("#mobile-nav"),nav=$("#navlinks");btn?.addEventListener("click",()=>{const open=nav.classList.toggle("open");btn.setAttribute("aria-expanded",String(open));});}
@@ -138,7 +138,7 @@ async function run(){
  document.getElementById("site-header").innerHTML=header();document.getElementById("site-footer").innerHTML=footer();bindMenu();
  await publicOverrides();
  const page=document.body.dataset.estatePage||"index";const renders={index:home,projet:project,carte:mapPage,terrains:listPage,lot:oneLot,recap:overview,financement:finance,contact,client};
- if(page==="admin"){document.getElementById("main").innerHTML=hero("Administration","Gestion sécurisée du projet","Accès réservé aux comptes Google invités et détenteurs du rôle administrateur.")+'<section class="section"><div class="wrap" id="admin-app"><div class="loading">Chargement sécurisé du module d’administration…</div></div></section>';return}
+ if(page==="admin"){document.getElementById("main").innerHTML=hero("Administration","Gestion sécurisée du projet","Accès réservé aux comptes Google invités et détenteurs du rôle administrateur.")+'<section class="section"><div class="wrap" id="admin-app"><div class="loading">Chargement sécurisé du module d’administration…</div></div></section>';document.dispatchEvent(new Event("estate-rendered"));return}
  document.getElementById("main").innerHTML=(renders[page]||home)();
  if(page==="index")M.init("home-map",{lots,showRoads:true});
  if(page==="projet")M.init("project-map",{lots,showRoads:true});
@@ -148,6 +148,7 @@ async function run(){
  if(page==="financement")simFinance();
  if(page==="contact")setupContact();
  if(page==="client")clientFaves();
+ document.dispatchEvent(new Event("estate-rendered"));
 }
 window.ESTATE_PUBLIC={getLots:()=>lots,getLot,esc,renderCard:lotCard,formatMoney:money,formatNumber:num};
 document.addEventListener("DOMContentLoaded",()=>{run().catch(e=>{const m=document.getElementById("main");if(m)m.innerHTML='<div class="wrap empty">Une erreur de chargement est survenue. Rechargez la page.</div>';console.error(e);})});
