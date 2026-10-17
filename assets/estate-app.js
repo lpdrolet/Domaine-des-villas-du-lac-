@@ -3,7 +3,7 @@
 "use strict";
 const d=window.DOMAIN_DATA,p=d.project,M=window.ESTATE_MAP;
 const $=q=>document.querySelector(q), $$=q=>Array.from(document.querySelectorAll(q));
-const esc=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;":"&quot;","'":"&#39;"}[c]));
+const esc=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const money=n=>new Intl.NumberFormat("fr-CA",{style:"currency",currency:"CAD",maximumFractionDigits:0}).format(n);
 const num=(x,max=0)=>new Intl.NumberFormat("fr-CA",{maximumFractionDigits:max}).format(x);
 const sqft=x=>x*10.7639104167097;
