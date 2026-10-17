@@ -1,4 +1,4 @@
-name: Validation du portail immobilier premium
+name: Validation et build du portail immobilier
 on:
   push:
     branches: [main]
@@ -15,11 +15,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Installation dépendances
+      - name: Installer les dépendances
         run: npm install --no-audit --no-fund
-      - name: Syntaxe JavaScript
+      - name: Tests du site et contrôles de sécurité
         run: npm test
-      - name: Production du site
+      - name: Préparer la version de production
         run: npm run build
-      - name: Tests pages, cadastre, sécurité et fiches
-        run: node scripts/qa-premium.mjs
+      - name: Vérifier les fichiers publiés
+        run: |
+          test -f dist/index.html
+          test -f dist/assets/admin.bundle.js
+          test -f dist/assets/client.bundle.js
+          test -f dist/terrains/1800388.html
+          test -f dist/sitemap.xml
+          test "$(find dist/terrains -type f -name '*.html' | wc -l)" -eq 16
