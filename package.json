@@ -1,11 +1,11 @@
 {
   "name": "domaine-villas-premium",
+  "version": "3.1.0",
   "private": true,
-  "version": "3.0.0",
   "type": "module",
   "scripts": {
     "build": "node scripts/build-premium.mjs",
-    "test": "node --check assets/estate-app.js && node --check assets/estate-map.js && node --check src/admin-auth.js"
+    "test": "node scripts/qa.mjs && node scripts/verify-premium.mjs"
   },
   "dependencies": {
     "@netlify/blobs": "^9.1.0",
