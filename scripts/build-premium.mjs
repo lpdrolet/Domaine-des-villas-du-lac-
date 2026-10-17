@@ -4,7 +4,7 @@ import vm from "node:vm";
 import {build} from "esbuild";
 const root=process.cwd(),dist=path.join(root,"dist");
 fs.rmSync(dist,{recursive:true,force:true});fs.mkdirSync(dist,{recursive:true});
-for(const name of fs.readdirSync(root))if(name.endsWith(".html")||name==="robots.txt")fs.copyFileSync(path.join(root,name),path.join(dist,name));
+for(const name of ["index.html","projet.html","carte.html","terrains.html","lot.html","recapitulatif.html","financement.html","contact.html","client.html","admin.html","__forms.html","404.html","robots.txt"])fs.copyFileSync(path.join(root,name),path.join(dist,name));
 fs.cpSync(path.join(root,"assets"),path.join(dist,"assets"),{recursive:true});
 await build({entryPoints:["src/admin-auth.js"],outfile:path.join(dist,"assets/admin-auth.js"),bundle:true,platform:"browser",format:"esm",target:"es2022",minify:true,logLevel:"info"});
 const context={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,"assets/data.js"),"utf8"),context);
