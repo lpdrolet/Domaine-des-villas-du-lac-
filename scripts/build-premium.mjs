@@ -1,0 +1,15 @@
+import fs from "node:fs";
+import path from "node:path";
+import {fileURLToPath} from "node:url";
+import {build} from "esbuild";
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),".."),dist=path.join(root,"dist");
+fs.rmSync(dist,{recursive:true,force:true});fs.mkdirSync(dist,{recursive:true});
+const files=fs.readdirSync(root).filter(x=>x.endsWith(".html")||x==="_redirects"||x==="robots.txt"||x==="sitemap.xml");
+for(const f of files)fs.copyFileSync(path.join(root,f),path.join(dist,f));
+fs.cpSync(path.join(root,"assets"),path.join(dist,"assets"),{recursive:true});
+const lots=fs.readdirSync(root+"/terrains").filter(x=>x.endsWith(".html"));
+fs.mkdirSync(dist+"/terrains",{recursive:true});
+for(const f of lots)fs.copyFileSync(root+"/terrains/"+f,dist+"/terrains/"+f);
+await build({entryPoints:["client/admin-entry.js","client/client-entry.js"],outdir:dist+"/assets",entryNames:"[name].bundle",bundle:true,format:"esm",platform:"browser",target:["es2022"],minify:true,logLevel:"warning"});
+for(const [from,to] of [["admin-entry.bundle.js","admin.bundle.js"],["client-entry.bundle.js","client.bundle.js"]])fs.renameSync(dist+"/assets/"+from,dist+"/assets/"+to);
+console.log("Site premium construit :",files.length,"pages générales et",lots.length,"fiches; client/admin bundle compilé.");
