@@ -2,7 +2,7 @@ import {getUser} from "@netlify/identity";
 import {getStore} from "@netlify/blobs";
 const types=["image/jpeg","image/png","image/webp","application/pdf"];
 async function authorizeAdmin(){
- try{const u=await getUser();return !!(u&&u.roles?.includes("admin"));}catch{return false}
+ try{const u=await getUser();const allowed=(Netlify.env.get("ADMIN_ALLOWED_EMAILS")||"").toLowerCase().split(/[;,]/).map(s=>s.trim()).filter(Boolean);return !!(u&&u.roles?.includes("admin")&&allowed.includes(String(u.email||"").toLowerCase()));}catch{return false}
 }
 export default async function handler(req:Request){
  const store=getStore({name:"domaine-media",consistency:"strong"});
