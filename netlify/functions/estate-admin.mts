@@ -30,6 +30,8 @@ export default async function handler(req:Request){
   const user=await getUser();
   if(!user)return unauth();
   if(!Array.isArray(user.roles)||!user.roles.includes("admin"))return Response.json({error:"Accès interdit : rôle administrateur requis."},{status:403,headers:{"Cache-Control":"no-store"}});
+  const allowed=(Netlify.env.get("ADMIN_ALLOWED_EMAILS")||"").toLowerCase().split(/[;,]/).map(s=>s.trim()).filter(Boolean);
+  if(!allowed.includes(String(user.email||"").toLowerCase()))return Response.json({error:"Courriel non autorisé. Configurez ADMIN_ALLOWED_EMAILS dans Netlify."},{status:403,headers:{"Cache-Control":"no-store"}});
   const store=getStore({name:"domaine-listings",consistency:"strong"});
   if(req.method==="GET"){
    const {blobs}=await store.list({prefix:"lot/"});
