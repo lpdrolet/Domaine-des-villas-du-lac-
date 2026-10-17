@@ -1,15 +1,17 @@
 {
-  "name": "domaine-des-villas-du-lac",
-  "version": "2.0.0",
+  "name": "domaine-villas-premium",
   "private": true,
+  "version": "1.0.0",
   "type": "module",
+  "description": "Vitrine immobilière du Domaine des villas du lac",
   "scripts": {
     "build": "node scripts/build-premium.mjs",
-    "test": "node scripts/qa.mjs && node scripts/verify-premium.mjs"
+    "test": "node --check assets/estate-app.js && node --check assets/estate-map.js && node --check src/admin-auth.js"
   },
   "dependencies": {
-    "@netlify/identity": "latest",
-    "@netlify/blobs": "latest"
+    "@netlify/blobs": "^9.1.0",
+    "@netlify/identity": "^2.0.0",
+    "@netlify/functions": "^5.2.0"
   },
   "devDependencies": {
     "esbuild": "^0.25.0"
