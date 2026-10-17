@@ -1,0 +1,17 @@
+{
+  "name": "domaine-des-villas-du-lac",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-premium.mjs",
+    "test": "node scripts/qa.mjs && node scripts/verify-premium.mjs"
+  },
+  "dependencies": {
+    "@netlify/identity": "latest",
+    "@netlify/blobs": "latest"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}
