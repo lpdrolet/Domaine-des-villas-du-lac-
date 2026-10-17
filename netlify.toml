@@ -1,8 +1,7 @@
 [build]
-  command = "npm run build"
   publish = "dist"
-[build.environment]
-  NODE_VERSION = "22"
+  command = "npm run build"
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
@@ -14,17 +13,8 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests"
-
-[[headers]]
-  for = "/*.html"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
-
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=600, stale-while-revalidate=86400"
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https://server.arcgisonline.com https://*.tile.openstreetmap.org https://unpkg.com; connect-src 'self'; font-src 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests"
+    Cross-Origin-Opener-Policy = "same-origin-allow-popups"
 
 [[headers]]
   for = "/admin.html"
@@ -33,7 +23,11 @@
     X-Robots-Tag = "noindex, nofollow"
 
 [[headers]]
-  for = "/client.html"
+  for = "/assets/*"
   [headers.values]
-    Cache-Control = "no-store"
+    Cache-Control = "public,max-age=0,must-revalidate"
+
+[[headers]]
+  for = "/__forms.html"
+  [headers.values]
     X-Robots-Tag = "noindex, nofollow"
