@@ -1,46 +1,48 @@
-import { getUser } from "@netlify/identity";
-import { getStore } from "@netlify/blobs";
-const noCache={"Cache-Control":"no-store","X-Content-Type-Options":"nosniff"};
-const json=(obj,status=200)=>Response.json(obj,{status,headers:noCache});
-const validLot=v=>/^\d{7}$/.test(String(v||""));
-export default async function handler(req) {
- let user;
- try {user=await getUser();} catch(e){return json({error:"Session invalide ou Identity non configuré"},401)}
- if(!user)return json({error:"Connexion nécessaire"},401);
- if(!Array.isArray(user.roles)||!user.roles.includes("admin"))return json({error:"Accès réservé au rôle administrateur"},403);
+import {getUser} from "@netlify/identity";
+import {getStore} from "@netlify/blobs";
+const headers={"Cache-Control":"no-store","X-Content-Type-Options":"nosniff"};
+const json=(obj,status=200)=>Response.json(obj,{status,headers});
+const ids=new Set(["1800347","1800348","1800385","1800387","1800388","1800389","1800390","1800391","1800392","1800393","1800394","1800395","1800411","1800412","1800413","1800414"]);
+const emailAllowed=user=>{
+ const allow=(Netlify.env.get("ADMIN_ALLOWED_EMAILS")||"").toLowerCase().split(",").map(v=>v.trim()).filter(Boolean);
+ return allow.length>0 && allow.includes(String(user?.email||"").toLowerCase());
+};
+export default async function handler(req){
+ let user;try{user=await getUser()}catch(e){return json({error:"Connexion Identity indisponible"},401)}
+ if(!user)return json({error:"Authentification nécessaire"},401);
+ if(!user.roles?.includes("admin")||!emailAllowed(user))return json({error:"Compte non autorisé. Vérifier le rôle admin et ADMIN_ALLOWED_EMAILS dans Netlify."},403);
+ const store=getStore({name:"domaine-public",consistency:"strong"});
  if(req.method==="GET"){
-  const what=new URL(req.url).searchParams.get("resource");
-  if(what==="leads"){
-   const store=getStore("domaine-leads"),listed=await store.list({prefix:"lead/"});
-   const leads=[];
-   for(const entry of (listed.blobs||[]).slice(-100)){
-    const v=await store.get(entry.key,{type:"json"});
-    if(v)leads.push(v);
-   }
-   return json({leads:leads.sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||""))});
+  const resource=new URL(req.url).searchParams.get("resource");
+  if(resource==="leads"){
+   const leadsStore=getStore("domaine-leads");
+   const result=await leadsStore.list({prefix:"lead/"});const leads=[];
+   for(const item of (result.blobs||[]).slice(-100)){const l=await leadsStore.get(item.key,{type:"json"});if(l)leads.push(l)}
+   return json({leads:leads.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)))});
   }
-  if(what==="listings"){
-   const store=getStore("domaine-public"),listing=await store.list({prefix:"lot-"}),lots={};
-   for(const entry of (listing.blobs||[])){
-    const id=entry.key.replace(/^lot-/,"");if(!validLot(id))continue;
-    lots[id]=await store.get(entry.key,{type:"json"});
-   }
+  if(resource==="listings"){
+   const lots={};
+   for(const id of ids){const lot=await store.get("lot-"+id,{type:"json"});if(lot)lots[id]=lot;}
    return json({lots});
   }
-  return json({email:user.email,roles:user.roles});
+  return json({email:user.email,roles:user.roles,admin:true});
  }
- if(req.method!=="POST")return json({error:"Méthode interdite"},405);
- const origin=req.headers.get("origin");
- if(origin && origin!==new URL(req.url).origin)return json({error:"Origine interdite"},403);
- if(Number(req.headers.get("content-length")||"0")>12000)return json({error:"Taille excessive"},413);
+ if(req.method!=="POST")return json({error:"Méthode non autorisée"},405);
+ const origin=req.headers.get("origin");if(origin!==new URL(req.url).origin)return json({error:"Origine non autorisée"},403);
+ if(Number(req.headers.get("content-length")||0)>16000)return json({error:"Contenu trop volumineux"},413);
  let body;try{body=await req.json()}catch{return json({error:"JSON invalide"},400)}
- if(body.action!=="saveListing"||!validLot(body.lot))return json({error:"Données invalides"},400);
- const acceptable=["Disponible","Information sur demande","Réservé","Vendu"];
+ const lot=String(body.lot||"");if(!ids.has(lot))return json({error:"Lot non répertorié au cadastre du projet"},400);
+ if(body.action==="resetListing"){await store.delete("lot-"+lot);return json({ok:true,reset:true})}
+ if(body.action!=="saveListing")return json({error:"Action inconnue"},400);
+ const statuses=["Information sur demande","Disponible","Réservé","Vendu"];
+ const status=statuses.includes(body.status)?body.status:"Information sur demande";
  const subtitle=String(body.subtitle||"").trim().slice(0,300);
- const photoUrl=String(body.photoUrl||"").trim().slice(0,600);
- const status=acceptable.includes(body.status)?body.status:"Information sur demande";
- if(photoUrl && (!/^https:\/\//i.test(photoUrl)||/[<>"']/.test(photoUrl)))return json({error:"Adresse photo invalide : HTTPS requis"},400);
- const store=getStore("domaine-public");
- await store.setJSON("lot-"+body.lot,{status,subtitle,photoUrl,updatedAt:new Date().toISOString(),updatedBy:user.id});
- return json({ok:true});
+ const photoUrl=String(body.photoUrl||"").trim().slice(0,1000);
+ const price=body.price==null||String(body.price).trim()===""?null:Number(body.price);
+ const visible=body.visible!==false;
+ if(price!==null&&(!Number.isInteger(price)||price<1000||price>10000000))return json({error:"Prix invalide"},400);
+ if(photoUrl&&(!/^https:\/\/[^\s<>"']+$/i.test(photoUrl)))return json({error:"Lien photo HTTPS requis"},400);
+ const updatedAt=new Date().toISOString();
+ await store.setJSON("lot-"+lot,{status,subtitle,photoUrl,price,visible,updatedAt,updatedBy:user.id});
+ return json({ok:true,updatedAt});
 }
