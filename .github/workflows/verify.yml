@@ -1,4 +1,4 @@
-name: Vérification du portail
+name: Vérification du portail immobilier
 on:
   push:
     branches: [main]
@@ -9,16 +9,21 @@ permissions:
 jobs:
   validation:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Syntaxe JavaScript
+      - name: Installation des dépendances
+        run: npm install --no-audit --no-fund
+      - name: Vérification des pages, cartes et API
+        run: npm test
+      - name: Production du site et des 16 fiches
+        run: npm run build
+      - name: Vérifier les bundles générés
         run: |
-          node --check assets/data.js
-          node --check assets/geometry.js
-          node --check assets/portal.js
-      - name: Tests de cohérence du site
-        run: node scripts/qa.mjs
+          test -f dist/assets/admin.bundle.js
+          test -f dist/assets/client.bundle.js
+          test -f dist/sitemap.xml
+          test -f dist/terrains/1800388.html

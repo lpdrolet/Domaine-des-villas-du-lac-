@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /client.html
+Disallow: /__forms.html
+Sitemap: https://domaine-des-villas-du-lac.netlify.app/sitemap.xml

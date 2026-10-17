@@ -1,0 +1,17 @@
+{
+  "name": "domaine-villas-premium",
+  "private": true,
+  "version": "2.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-premium.mjs",
+    "test": "node scripts/qa.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "latest",
+    "@netlify/identity": "latest"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}
