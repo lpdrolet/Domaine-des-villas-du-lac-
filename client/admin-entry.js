@@ -32,11 +32,22 @@ function drawLots(){
  if(!selected)selected=items[0]?.id;
  const l=D.lots.find(x=>x.id===selected);if(!l)return;
  const edit=edits[l.id]||{};
- $("lot-editor").innerHTML='<div class="panel"><div class="eyebrow">ÉDITION PUBLIQUE</div><h3>Lot '+esc(l.label)+'</h3><p class="tiny">Superficie graphique : '+fmt(l.area)+' m², en lecture seule. La propriété, les titres et les offres confidentielles ne sont pas publiés.</p><form id="edit-form"><div class="field"><label for="status">Statut public</label><select id="status" name="status">'+["Information sur demande","Disponible","Réservé","Vendu"].map(v=>'<option '+(v===(edit.status||"Information sur demande")?"selected":"")+'>'+v+'</option>').join("")+'</select></div><div class="field" style="margin-top:14px"><label for="subtitle">Description (300 caractères)</label><textarea name="subtitle" id="subtitle" maxlength="300">'+esc(edit.subtitle||"")+'</textarea></div><div class="field" style="margin-top:14px"><label for="photoUrl">Photo réelle hébergée en HTTPS (facultatif)</label><input name="photoUrl" id="photoUrl" type="url" placeholder="https://..." value="'+esc(edit.photoUrl||"")+'"></div><div class="admin-actions" style="margin-top:20px"><button class="btn btn-primary" type="submit">Enregistrer la fiche →</button><a href="/terrains/'+l.id+'.html" target="_blank" rel="noopener" class="btn btn-outline">Aperçu public ↗</a></div><p id="lot-result" aria-live="polite" class="tiny"></p></form></div>';
+ $("lot-editor").innerHTML='<div class="panel"><div class="eyebrow">ÉDITION PUBLIQUE</div><h3>Lot '+esc(l.label)+'</h3><p class="tiny">Superficie graphique : '+fmt(l.area)+' m², en lecture seule. La propriété, les titres et les offres confidentielles ne sont pas publiés.</p><form id="edit-form"><div class="field"><label for="status">Statut public</label><select id="status" name="status">'+["Information sur demande","Disponible","Réservé","Vendu"].map(v=>'<option '+(v===(edit.status||"Information sur demande")?"selected":"")+'>'+v+'</option>').join("")+'</select></div><div class="field" style="margin-top:14px"><label for="subtitle">Description (300 caractères)</label><textarea name="subtitle" id="subtitle" maxlength="300">'+esc(edit.subtitle||"")+'</textarea></div><div class="field" style="margin-top:14px"><label for="price">Prix public en $ (laisser vide = sur demande)</label><input name="price" id="price" type="number" min="1000" step="100" placeholder="Sur demande" value="'+esc(edit.price||"")+'"></div><div class="field" style="margin-top:14px"><label for="photoUrl">Adresse image HTTPS publique</label><input name="photoUrl" id="photoUrl" type="url" placeholder="https://..." value="'+esc(edit.photoUrl||"")+'"></div><div class="field" style="margin-top:14px"><label for="upload-image">Ou téléverser une photo publique (JPG, PNG, WebP)</label><input id="upload-image" type="file" accept="image/jpeg,image/png,image/webp"></div><div class="field" style="margin-top:14px"><label for="documentUrl">Lien PDF public</label><input name="documentUrl" id="documentUrl" type="url" placeholder="https://..." value="'+esc(edit.documentUrl||"")+'"></div><div class="field" style="margin-top:14px"><label for="upload-pdf">Ou téléverser un PDF public (max 6 Mo)</label><input id="upload-pdf" type="file" accept="application/pdf"></div><label class="checkboxline" style="margin-top:14px"><input id="visible" type="checkbox" '+(edit.visible!==false?"checked":"")+'>Afficher cette parcelle dans le catalogue public</label><p class="tiny">Ne téléversez aucun titre de propriété personnel, contrat ou document financier confidentiel : ces fichiers sont publiquement accessibles.</p><div class="admin-actions" style="margin-top:20px"><button class="btn btn-primary" type="submit">Enregistrer la fiche →</button><a href="/terrains/'+l.id+'.html" target="_blank" rel="noopener" class="btn btn-outline">Aperçu public ↗</a></div><p id="lot-result" aria-live="polite" class="tiny"></p></form></div>';
  $("edit-form").addEventListener("submit",async ev=>{
  ev.preventDefault();const data=Object.fromEntries(new FormData(ev.target));
  $("lot-result").textContent="Enregistrement…";
- try{await api("",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"saveListing",lot:l.id,...data})});edits[l.id]=data;$("lot-result").textContent="Fiche mise à jour. Rechargez la page publique pour voir les changements."}
+ try{
+ const img=$("upload-image").files[0],pdf=$("upload-pdf").files[0];
+ for(const [file,field] of [[img,"photoUrl"],[pdf,"documentUrl"]]){
+  if(!file)continue;
+  const form=new FormData();form.append("file",file);
+  const response=await fetch("/.netlify/functions/media",{method:"POST",body:form,credentials:"same-origin"});
+  const upload=await response.json();if(!response.ok)throw Error(upload.error||"Téléversement refusé");
+  data[field]=upload.url;
+ }
+ data.visible=$("visible").checked;
+ data.price=$("price").value.trim()===""?null:Number($("price").value);
+ await api("",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"saveListing",lot:l.id,...data})});edits[l.id]=data;$("lot-result").textContent="Fiche mise à jour. Rechargez la page publique pour voir les changements."}
  catch(e){$("lot-result").textContent=e.message}
  });
 }
@@ -52,7 +63,7 @@ async function init(){
  $("site-footer").innerHTML='<footer class="footer"><div class="wrap"><p class="tiny">Administration privée. Ne jamais publier de documents d’offres, dossiers fiscaux ou données foncières personnelles dans le dépôt public.</p></div></footer>';
  try{await handleAuthCallback();const user=await getUser();if(!user)return noAuth();
    $("admin-message").textContent="Vérification des droits administrateur…";
-   await api("");drawAdmin(user);setAlert("");
+   await api("");const stored=await api("?resource=listings");edits=stored.lots||{};drawAdmin(user);setAlert("");
  }catch(e){const message=String(e.message||e);
    if(message.includes("403")||message.includes("administrateur")||message.includes("réservé"))deny(message);
    else {noAuth();setAlert("Authentification indisponible ou non activée. Configurez Netlify Identity (Google / inscription par invitation) avant la première connexion.");console.error(e)}
