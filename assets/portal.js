@@ -12,7 +12,7 @@ const roadArea=D.roads.reduce((s,x)=>s+x.area,0);
 const groupCount=g=>D.lots.filter(x=>x.group===g).length;
 const page=document.body.dataset.page||"index";
 const sources=D.sources;
-const pages=[["index","Vue d'ensemble","index.html"],["acquisitions","01 Acquisitions","acquisitions.html"],["routes","02 Construction","routes.html"],["ventes","03 Ventes","ventes.html"],["terrains","Terrains","terrains.html"],["carte","Carte SIG","carte.html"],["finances","Scénarios","finances.html"],["documents","Sources / actions","documents.html"]];
+const pages=[["index","Vue d'ensemble","index.html"],["revue","Revue 2026","revue.html"],["acquisitions","01 Acquisitions","acquisitions.html"],["routes","02 Construction","routes.html"],["ventes","03 Ventes","ventes.html"],["terrains","Terrains","terrains.html"],["carte","Carte SIG","carte.html"],["finances","Scénarios","finances.html"],["documents","Sources / actions","documents.html"]];
 const pill=(s,cls="")=>`<span class="badge-inline ${cls}">${H(s)}</span>`;
 const arrow=" → ";
 const cta=(text,href,variant="")=>`<a class="button ${variant}" href="${H(href)}">${H(text)}</a>`;
@@ -29,7 +29,7 @@ const cells=(arr)=>arr.map(x=>`<td>${x}</td>`).join("");
 const th=(cols)=>`<thead><tr>${cols.map(x=>`<th>${H(x)}</th>`).join("")}</tr></thead>`;
 const layoutTable=(cols,rows)=>`<div class="table-wrap"><table class="data-table">${th(cols)}<tbody>${rows.join("")}</tbody></table></div>`;
 const statusClass=t=>t==="P0"?"warn":t==="P1"?"":"ok";
-const notePublic="Mesures calculées à partir de polygones cadastraux graphiques (source 9 août 2026), concordantes entre deux diffusions gouvernementales à ±0,02 m². Elles ne constituent ni un bornage, ni une preuve de propriété, ni une autorisation de construire.";
+const notePublic="Surfaces graphiques recalculées le 17 octobre 2026 sur les polygones cadastraux. Elles ne sont ni une mesure légale, ni une preuve de titre ou de constructibilité. Les contours de carte sont simplifiés.";
 const nav=pages.map(([key,label,url])=>`<a href="${url}" ${page===key?'aria-current="page"':""} ${key==="documents"?'class="nav-cta"':""}>${H(label)}</a>`).join("");
 const header=`<a class="skip-link" href="#site-content">Aller au contenu</a>
 <div class="portal-top"><div class="wrap"><span><strong>DOMAINE DES VILLAS DU LAC</strong> · Dossier de développement / Deauville</span><span>État du dossier : ${H(D.updated)} · Informations de travail</span></div></div>
@@ -43,10 +43,28 @@ const footer=`<footer class="portal-footer"><div class="wrap"><div class="footer
 <div><h3>Fiabilité et sources</h3><a href="terrains.html">Inventaire des 16 lots</a><a href="documents.html">Sources officielles et tâches</a><p>Les titres, prix d'achat, documents fiscaux, ententes et études détaillées ne sont pas publiés ici.</p></div>
 </div><div class="footer-line">© 2026 Domaine des villas du lac · Consultation du dossier : ${H(D.updated)} · Données cadastrales indicatives, aucune certification de constructibilité</div></div></footer>`;
 
+
+function renderRevue(){
+const contrôles=[
+line("Ancienne autorisation de Deauville","Archives demandées le 16 octobre 2026 à Sherbrooke; accusé reçu. Résolution et plans encore en attente.","En cours","warn"),
+line("Titres de propriété et servitudes","16 terrains et deux emprises; le titre légal et les droits d'accès de chaque lot restent à certifier.","À certifier","warn"),
+line("Lot 1 800 388","Déjà détenu selon déclaration du porteur; acte à classer. Exclu des neuf acquisitions.","Déclaré","ok"),
+line("Route à compléter","223 + 229 = 452 m, contre 478 m dans une autre estimation et 454,295 m par différence. Aucune longueur certifiée.","À mesurer","warn"),
+line("Avis municipal du 20 février 2026","Matricule 8321087597; milieux humides et boisés à délimiter officiellement, portée sur les deux emprises à préciser.","À clarifier","warn"),
+line("Permis de construire","Le cadastre ne garantit ni 15 permis ni la conformité de la route en gravier sans services.","Non confirmés","warn")
+];
+return hero("Revue stratégique · 17 octobre 2026","Le projet complet pour décider","Acquisitions, prolongement de la rue, ventes et diligence : une vue consolidée sans présumer des droits ou des autorisations.")
++section("Situation","Inventaire à date",`<div class="cards-4">${metric("Lots résidentiels","16","7 détenus déclarés, 9 à acquérir")}${metric("Superficie graphique",n(totalArea,1)+" m²",n(sqft(totalArea))+" pi² indicatifs")}${metric("Emprises de rue","2",n(roadArea,3)+" m², non vendables")}${metric("Ventes visées","15",money(P.priceDeveloped)+"/lot, cible non validée")}</div>${info("Précaution","Les surfaces sont SIG, les groupes de détention non certifiés, et les droits de construire non acquis.")}`)
++section("Trois volets","Stratégie de réalisation",`<div class="cards-3">${card("01","Acquisitions","Neuf lots visés : six dans le groupe Viviane / SENC et trois Blue Sports.","Détails","acquisitions.html",["Vérifier titres et signataires","Séparer les deux emprises","Propositions de prix conservées en privé"])}${card("02","Réalisation de la rue","Réseau historique de 854,295 m, environ 400 m existants déclarés.","Détails","routes.html",["Chaussée en gravier envisagée","Sans services municipaux","Projet et métrage à approuver"])}${card("03","Vente des lots","Objectif de 15 ventes à prix cible non validé.","Détails","ventes.html",["Vérifier le petit lot 1 800 348","Puits et septique par lot","Comparer lot par lot ou en bloc"])}</div>`,"alt")
++section("Risques","Six contrôles avant engagement",`<div class="lined-list">${contrôles.join("")}</div>`)
++section("Économie du projet","Simulation seulement",`<div class="cards-2"><div class="panel"><h3>Ventes brutes hypothétiques</h3><div class="big-number">${money(15*P.priceDeveloped)}</div><p>15 × prix cible. Ne représente ni un revenu garanti ni la marge après coûts.</p></div><div class="panel"><h3>Prolongement mathématique</h3><div class="big-number">${n(P.theoreticalRemainM,3)} m</div><p>Réseau complet moins chemin existant approximatif : ni levé ni quantité de travaux certifiée.</p></div></div><p class="data-note">Le modèle net exige acquisition, route, études, drainage, taxes, commissions, financement et fiscalité; renseignements détaillés confidentiels.</p>`)
++section("Prochaines étapes","Ordre des validations",`<div class="lined-list">${line("1. Réponse de la Ville","Plan et résolution de Deauville, acceptation d'une rue en gravier, conditions écologiques et statut des emprises.")}${line("2. Notaire et arpenteur","Titres, cotes cadastrales Infolot, servitudes, accès et levé des longueurs réelles.")}${line("3. Environnement et génie civil","Cartographier milieux réglementés, concevoir rue et obtenir deux estimations comparables.")}${line("4. Comptabilité et vente","Choisir structure des achats, convention de quote-part et scénario net après fiscalité.")}</div><p>${cta("Registre et étapes","documents.html#actions")} ${cta("Voir la carte","carte.html","light")}</p>`,"alt");
+}
+
 function renderHome(){
 const top=hero("Pilotage stratégique","Un projet. Trois décisions. Un plan vérifiable.",
 "16 lots résidentiels identifiés, deux emprises de rue et un réseau historique d'environ 854 mètres. Chaque étape doit être validée avant d'engager des achats ou des travaux.",true,
-cta("Voir le plan d'action","documents.html#actions","alt")+cta("Inventaire cadastral","terrains.html","ghost"));
+cta("Revue intégrale du projet","revue.html","alt")+cta("Inventaire cadastral","terrains.html","ghost"));
 const stats=`<div class="wrap"><div class="kpi-row">${metric("Terrains identifiés",n(count),"Objectif : 15 ventes, non confirmées")}
 ${metric("Superficie brute",n(totalArea,1)+" m²",n(sqft(totalArea))+" pi²")}
 ${metric("Emprises de rue","2 lots",n(roadArea,1)+" m² au total")}
@@ -103,7 +121,7 @@ ${metric("Terrains au total",n(count)+" lots","7 L.-P. + 6 Viviane + 3 Blue")}
 ${line("1. Titres et pouvoirs de signer","Confirmer chaque détenteur inscrit et toute procuration ou décision d'associés requise.")}
 ${line("2. Emprises et servitudes","Distinguer les rues 349 et 4 889 707, leur titulaire, les accès et les obligations d'entretien.")}
 ${line("3. Lots atypiques","Lot 348 : regroupement/cession à étudier; lot 388 : acte à classer; lot 374 : historique cadastral.")}
-${line("4. Évaluation conditionnelle","1,50 $/pi² demeure une hypothèse maximale d'achat, pas un prix offert ou reconnu par un vendeur.")}
+${line("4. Évaluation conditionnelle","Les prix de négociation et les offres sont conservés dans le dossier confidentiel.")}
 ${line("5. Fiscalité et entente","Faire valider l'entité acquéreuse, TPS/TVQ, financement, répartitions et pertes fiscales admissibles par des professionnels.")}
 </div><div style="margin-top:22px">${cta("Inventaire cadastral","terrains.html")} ${cta("Voir la feuille de route","documents.html#actions","light")}</div>`);
 }
@@ -113,8 +131,8 @@ return hero("02 · Infrastructure","Construire la portion manquante, pas les 854
 "Le réseau complet mesure environ 854 m selon l'ancien tracé. Environ 400 m existent déjà selon le dossier. Il faut lever sur le terrain la partie réelle à construire et confirmer les normes applicables.")
 +section("Réseau cadastral","Deux lots de rue et trois longueurs historiques",`
 <div class="diagram">
-<div class="segment"><span class="badge-inline">Emprise 01</span><strong>1 800 349</strong><small>2 629,5 m² · périmètre SIG 278,6 m</small></div>
-<div class="segment"><span class="badge-inline">Emprise 02</span><strong>4 889 707</strong><small>9 270,2 m² · périmètre SIG 963,1 m</small></div>
+<div class="segment"><span class="badge-inline">Emprise 01</span><strong>1 800 349</strong><small>2 629,3 m² SIG indicatifs</small></div>
+<div class="segment"><span class="badge-inline">Emprise 02</span><strong>4 889 707</strong><small>9 269,7 m² SIG indicatifs</small></div>
 <div class="segment"><span class="badge-inline warn">Prolongement</span><strong>À mesurer</strong><small>Le réseau projeté ne représente pas directement les travaux à exécuter</small></div>
 </div>
 <div class="cards-4" style="margin-top:20px">
@@ -264,7 +282,7 @@ const sourcesRows=[
 return hero("Diligence · Sources","Registre des preuves et plan d'action",
 "Les calculs SIG sont reproduits. Les autorisations, les titres, les études environnementales et le devis final ne le sont pas encore. Cette page distingue ce qui est acquis de ce qui reste à produire.")
 +section("Traçabilité","Ce que nous pouvons affirmer",`<div class="cards-3">
-<div class="panel"><span class="badge-inline ok">Calcul reproductible</span><h3 style="margin-top:14px">Surfaces et périmètres</h3><p>16 lots et 2 rues; deux diffusions concordent à environ 0,02 m² maximum. Source primaire du 9 août 2026.</p></div>
+<div class="panel"><span class="badge-inline ok">Calcul reproductible</span><h3 style="margin-top:14px">Surfaces et périmètres</h3><p>16 lots et 2 rues recalculés le 17 octobre 2026. Ces surfaces SIG ne sont pas juridiquement certifiées.</p></div>
 <div class="panel"><span class="badge-inline warn">Étude à faire</span><h3 style="margin-top:14px">Environnement</h3><p>9 lots recoupent une couche de milieux humides potentiels, soit environ 8 011,9 m² de superposition graphique. Aucun droit de construire conclu.</p></div>
 <div class="panel"><span class="badge-inline warn">Pièces à obtenir</span><h3 style="margin-top:14px">Titres et permis</h3><p>Propriété du lot 388, historique du 374, deux rues, plans approuvés et normes municipales non certifiés.</p></div>
 </div>`)
@@ -275,7 +293,7 @@ return hero("Diligence · Sources","Registre des preuves et plan d'action",
 <div class="warning info"><strong>Suivi local</strong><p>Les cases cochées sont enregistrées uniquement dans ce navigateur. Elles ne modifient pas les données partagées sur GitHub ou les statuts officiels du projet.</p></div>
 <p class="subtle" id="task-tally" aria-live="polite"></p><div class="lined-list" id="task-list"></div>`,"alt")
 +section("Références","Sources et limites",layoutTable(["Document","Version / situation","Lien","Portée"],sourcesRows.map(([name,ver,url,scope])=>`<tr><td><strong>${H(name)}</strong></td><td>${H(ver)}</td><td>${link("Consulter",url)}</td><td>${H(scope)}</td></tr>`)).replace('<div class="table-wrap">','<div class="table-wrap" id="sources">')+
-`<p class="data-note">Les anciennes archives CSV du dépôt sont remplacées comme références de calcul par le registre vérifié du 15 octobre 2026. Le classeur exhaustif demeure privé; il n'est pas publié dans ce site.</p>`)
+`<p class="data-note">Les anciennes archives CSV du dépôt sont remplacées comme références de calcul par les mesures SIG du 17 octobre 2026. Le classeur exhaustif demeure privé; il n'est pas publié dans ce site.</p>`)
 +section("Pièces bloquantes","Dossier de décision et confidentialité",`<div class="lined-list">
 ${line("Plan de lotissement initial de Deauville","Résolution datée, plan tamponné, conditions originales et avis sur validité actuelle.")}
 ${line("Titres et Infolot","18 fiches cadastrales, actes, servitudes et propriété des deux emprises.")}
@@ -338,7 +356,7 @@ const c=document.createElement("p");c.className="data-note";c.textContent="18 po
 
 });
 const renderMap=()=>'<section class="section-block"><div class="wrap"><p>Préparation de la carte cadastrale…</p></div></section>';
-const renderers={carte:renderMap,index:renderHome,acquisitions:renderAcquisitions,routes:renderRoutes,ventes:renderVentes,terrains:renderTerrains,lot:renderLot,finances:renderFinances,documents:renderDocuments};
+const renderers={carte:renderMap,index:renderHome,revue:renderRevue,acquisitions:renderAcquisitions,routes:renderRoutes,ventes:renderVentes,terrains:renderTerrains,lot:renderLot,finances:renderFinances,documents:renderDocuments};
 document.getElementById("site-header").innerHTML=header;
 document.getElementById("site-footer").innerHTML=footer;
 document.getElementById("site-content").innerHTML=(renderers[page]||renderHome)();
