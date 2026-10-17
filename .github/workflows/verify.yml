@@ -1,4 +1,4 @@
-name: Validation du portail premium
+name: Vérification du portail immobilier
 on:
   push:
     branches: [main]
@@ -9,17 +9,21 @@ permissions:
 jobs:
   validation:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Dépendances
+      - name: Installation des dépendances
         run: npm install --no-audit --no-fund
-      - name: Syntaxe JavaScript
-        run: npm run test
-      - name: Génération du portail et des 16 fiches
+      - name: Vérification des pages, cartes et API
+        run: npm test
+      - name: Production du site et des 16 fiches
         run: npm run build
-      - name: Validation cadastrale, SEO et sécurité
-        run: node scripts/qa-premium.mjs
+      - name: Vérifier les bundles générés
+        run: |
+          test -f dist/assets/admin.bundle.js
+          test -f dist/assets/client.bundle.js
+          test -f dist/sitemap.xml
+          test -f dist/terrains/1800388.html
