@@ -38,11 +38,13 @@ export default async function handler(req){
  const status=statuses.includes(body.status)?body.status:"Information sur demande";
  const subtitle=String(body.subtitle||"").trim().slice(0,300);
  const photoUrl=String(body.photoUrl||"").trim().slice(0,1000);
+ const documentUrl=String(body.documentUrl||"").trim().slice(0,1000);
  const price=body.price==null||String(body.price).trim()===""?null:Number(body.price);
  const visible=body.visible!==false;
  if(price!==null&&(!Number.isInteger(price)||price<1000||price>10000000))return json({error:"Prix invalide"},400);
  if(photoUrl&&(!/^https:\/\/[^\s<>"']+$/i.test(photoUrl)))return json({error:"Lien photo HTTPS requis"},400);
+ if(documentUrl&&(!/^https:\/\/[^\s<>"']+$/i.test(documentUrl)))return json({error:"Lien PDF HTTPS requis"},400);
  const updatedAt=new Date().toISOString();
- await store.setJSON("lot-"+lot,{status,subtitle,photoUrl,price,visible,updatedAt,updatedBy:user.id});
+ await store.setJSON("lot-"+lot,{status,subtitle,photoUrl,documentUrl,price,visible,updatedAt,updatedBy:user.id});
  return json({ok:true,updatedAt});
 }
