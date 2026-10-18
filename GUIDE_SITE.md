@@ -35,3 +35,7 @@ Une superficie SIG n’est ni un bornage ni une preuve de titre. Les statuts de 
 
 ## Maintenance
 Les changements sur `main` de GitHub déclenchent le déploiement Netlify. Vérifier l’état « ready » et le SHA GitHub correspondant avant d’annoncer une mise à jour. Les tests sont exécutés sous GitHub Actions. 
+
+## Étude du coût de la rue — 18 octobre 2026
+
+La page publique `/voirie.html` explique le prolongement, les trois longueurs contradictoires (452 m, 454,295 m, 478 m) et les validations techniques requises. Un modèle Excel **privé** séparé, `Domaine_Villas_MODELE_ROUTE_FINANCE_2026-10-18.xlsx`, contient les hypothèses de prix unitaires, un bordereau de 18 postes, les trois scénarios, un modèle de rentabilité conditionnel et les références publiques. **Ne pas copier ce fichier dans le dépôt public ni le joindre au site.** Le coût central est une estimation préliminaire non soumissionnée; les autorisations municipales et environnementales ne sont pas confirmées.
