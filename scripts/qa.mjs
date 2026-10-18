@@ -13,4 +13,4 @@ for(const p of pages){const h=fs.readFileSync(p,"utf8");assert.ok(h.includes("as
 const admin=fs.readFileSync("netlify/functions/admin-api.mjs","utf8");assert.match(admin,/ADMIN_ALLOWED_EMAILS/);assert.match(admin,/roles\?\.includes\("admin"\)/);
 const config=fs.readFileSync("netlify.toml","utf8");assert.match(config,/publish = "dist"/);
 console.log("OK: 16 lots, 2 emprises, 10 pages, authentification et CSP, médias, fichiers SIG.");
-\n
+
