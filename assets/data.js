@@ -1,6 +1,6 @@
 /* Données publiques de pilotage. Titres, noms des propriétaires, offres et fiscalité privés exclus du site public. Les surfaces SIG ne sont pas certifiées. */
 window.DOMAIN_DATA = {
-  "updated": "17 octobre 2026 — données cadastrales consolidées",
+  "updated": "18 octobre 2026 — voirie chiffrée dans le dossier confidentiel",
   "version": "Revue documentaire et SIG du 17 octobre 2026",
   "sourceDate": "17 octobre 2026 (calcul sur polygones SIG)",
   "project": {
@@ -28,7 +28,16 @@ window.DOMAIN_DATA = {
     "roadMismatchM": 26,
     "archivesStatus": "Demande transmise à Sherbrooke le 16 octobre 2026; accusé reçu; archives historiques en attente",
     "municipalNotice": "Avis du 20 février 2026, matricule 8321087597; portée sur emprises à confirmer",
-    "precision": "Superficies graphiques recalculées; Infolot, titres fonciers, droits et constructibilité non certifiés"
+    "precision": "Superficies graphiques recalculées; Infolot, titres fonciers, droits et constructibilité non certifiés",
+    "roadStudyUpdated": "2026-10-18",
+    "roadCostStatus": "Bordereau préliminaire établi : 18 postes, 3 scénarios, hypothèses non soumissionnées. Détails confidentiels, accessibles aux prêteurs après accord.",
+    "roadStudyLengthCentralM": 454.295,
+    "roadStudyLengthAlternativesM": [
+      452,
+      478
+    ],
+    "gravelOnly": true,
+    "municipalAcceptance": "Rue gravier et sans réseaux envisagée : portée des autorisations et statut public/privé à confirmer avec Sherbrooke."
   },
   "groups": {
     "lp": "Groupe L.-P. et sociétés liées",
