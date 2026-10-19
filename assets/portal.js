@@ -32,16 +32,16 @@ const statusClass=t=>t==="P0"?"warn":t==="P1"?"":"ok";
 const notePublic="Surfaces graphiques recalculées le 17 octobre 2026 sur les polygones cadastraux. Elles ne sont ni une mesure légale, ni une preuve de titre ou de constructibilité. Les contours de carte sont simplifiés.";
 const nav=pages.map(([key,label,url])=>`<a href="${url}" ${page===key?'aria-current="page"':""} ${key==="documents"?'class="nav-cta"':""}>${H(label)}</a>`).join("");
 const header=`<a class="skip-link" href="#site-content">Aller au contenu</a>
-<div class="portal-top"><div class="wrap"><span><strong>DOMAINE DES VILLAS DU LAC</strong> · Dossier de développement / Deauville</span><span>État du dossier : ${H(D.updated)} · Informations de travail</span></div></div>
+<div class="portal-top"><div class="wrap"><span><strong>Société des Villas</strong> · Dossier de développement / Deauville</span><span>État du dossier : ${H(D.updated)} · Informations de travail</span></div></div>
 <header class="portal-header"><div class="wrap portal-head-inner">
-<a class="portal-brand" href="index.html"><img src="assets/domaine-logo.webp" alt="Identité du Domaine des villas du lac"><span><b>DOMAINE DES VILLAS DU LAC</b><small>Sherbrooke · Secteur Deauville</small></span></a>
+<a class="portal-brand" href="index.html"><img src="assets/domaine-logo.webp" alt="Identité du Société des Villas"><span><b>Société des Villas</b><small>Sherbrooke · Secteur Deauville</small></span></a>
 <button class="portal-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button><nav class="portal-nav" id="primary-nav" aria-label="Navigation principale">${nav}</nav>
 </div></header>`;
 const footer=`<footer class="portal-footer"><div class="wrap"><div class="footer-grid">
-<div><h3>Domaine des villas du lac</h3><p>Projet de lotissement existant à Deauville, Sherbrooke. Une vue de suivi structurée en acquisitions, infrastructure et commercialisation.</p></div>
+<div><h3>Société des Villas</h3><p>Projet de lotissement existant à Deauville, Sherbrooke. Une vue de suivi structurée en acquisitions, infrastructure et commercialisation.</p></div>
 <div><h3>Les trois volets</h3><a href="acquisitions.html">01 · Acquisitions</a><a href="routes.html">02 · Rue</a><a href="ventes.html">03 · Ventes</a></div>
 <div><h3>Fiabilité et sources</h3><a href="terrains.html">Inventaire des 16 lots</a><a href="documents.html">Sources officielles et tâches</a><p>Les titres, prix d'achat, documents fiscaux, ententes et études détaillées ne sont pas publiés ici.</p></div>
-</div><div class="footer-line">© 2026 Domaine des villas du lac · Consultation du dossier : ${H(D.updated)} · Données cadastrales indicatives, aucune certification de constructibilité</div></div></footer>`;
+</div><div class="footer-line">© 2026 Société des Villas · Consultation du dossier : ${H(D.updated)} · Données cadastrales indicatives, aucune certification de constructibilité</div></div></footer>`;
 
 
 function renderRevue(){
