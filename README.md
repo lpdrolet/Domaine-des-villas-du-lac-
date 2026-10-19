@@ -1,4 +1,4 @@
-# Domaine des villas du lac — Pilotage du développement
+# Société des Villas — Pilotage du développement
 
 Site statique de suivi du projet de Deauville à Sherbrooke, au Québec.
 Révision fonctionnelle et cadastrale : **17 octobre 2026**.
