@@ -4,7 +4,7 @@ window.DOMAIN_DATA = {
   "version": "Revue documentaire et SIG du 17 octobre 2026",
   "sourceDate": "17 octobre 2026 (calcul sur polygones SIG)",
   "project": {
-    "title": "Domaine des villas du lac",
+    "title": "Société des Villas",
     "location": "Rue des Villas · Deauville · Sherbrooke",
     "targetSales": 15,
     "priceDeveloped": 185000,
