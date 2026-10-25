@@ -1,12 +1,14 @@
+import {isAllowedAdmin} from "../../src/server-auth.mjs";
 import {getUser} from "@netlify/identity";
 import {getStore} from "@netlify/blobs";
 const types=["image/jpeg","image/png","image/webp","application/pdf"];
 async function authorizeAdmin(){
- try{const u=await getUser();return !!(u&&u.roles?.includes("admin"));}catch{return false}
+ try{const u=await getUser();return isAllowedAdmin(u,Netlify.env.get("ADMIN_ALLOWED_EMAILS"));}catch{return false}
 }
 export default async function handler(req:Request){
  const store=getStore({name:"domaine-media",consistency:"strong"});
  if(req.method==="POST"){
+  if(req.headers.get("origin")!==new URL(req.url).origin)return Response.json({error:"Origine interdite"},{status:403});
   if(!(await authorizeAdmin()))return Response.json({error:"Accès administrateur requis"},{status:403});
   try{
    const f=await req.formData(),file=f.get("file");
