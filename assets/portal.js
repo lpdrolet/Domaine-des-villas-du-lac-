@@ -48,13 +48,13 @@ function renderRevue(){
 const contrôles=[
 line("Ancienne autorisation de Deauville","Archives demandées le 16 octobre 2026 à Sherbrooke; accusé reçu. Résolution et plans encore en attente.","En cours","warn"),
 line("Titres de propriété et servitudes","16 terrains et deux emprises; le titre légal et les droits d'accès de chaque lot restent à certifier.","À certifier","warn"),
-line("Lot 1 800 388","Déjà détenu selon déclaration du porteur; acte à classer. Exclu des neuf acquisitions.","Déclaré","ok"),
+line("Lot 1 800 388","Détention personnelle déclarée par le porteur; acte à vérifier. Aucune acquisition nouvelle réalisée.","Déclaré","ok"),
 line("Route à compléter","223 + 229 = 452 m, contre 478 m dans une autre estimation et 454,295 m par différence. Aucune longueur certifiée.","À mesurer","warn"),
 line("Avis municipal du 20 février 2026","Matricule 8321087597; milieux humides et boisés à délimiter officiellement, portée sur les deux emprises à préciser.","À clarifier","warn"),
 line("Permis de construire","Le cadastre ne garantit ni 15 permis ni la conformité de la route en gravier sans services.","Non confirmés","warn")
 ];
 return hero("Revue stratégique · 17 octobre 2026","Le projet complet pour décider","Acquisitions, prolongement de la rue, ventes et diligence : une vue consolidée sans présumer des droits ou des autorisations.")
-+section("Situation","Inventaire à date",`<div class="cards-4">${metric("Lots résidentiels","16","7 détenus déclarés, 9 à acquérir")}${metric("Superficie graphique",n(totalArea,1)+" m²",n(sqft(totalArea))+" pi² indicatifs")}${metric("Emprises de rue","2",n(roadArea,3)+" m², non vendables")}${metric("Ventes visées","15",money(P.priceDeveloped)+"/lot, cible non validée")}</div>${info("Précaution","Les surfaces sont SIG, les groupes de détention non certifiés, et les droits de construire non acquis.")}`)
++section("Situation","Inventaire à date",`<div class="cards-4">${metric("Lots résidentiels","16","6 attributions groupe + 1 personnel déclaré; 9 autres lots à étudier")}${metric("Superficie graphique",n(totalArea,1)+" m²",n(sqft(totalArea))+" pi² indicatifs")}${metric("Emprises de rue","2",n(roadArea,3)+" m², non vendables")}${metric("Ventes visées","15",money(P.priceDeveloped)+"/lot, cible non validée")}</div>${info("Précaution","Les surfaces sont SIG, les groupes de détention non certifiés, et les droits de construire non acquis.")}`)
 +section("Trois volets","Stratégie de réalisation",`<div class="cards-3">${card("01","Acquisitions","Neuf lots visés : six dans le groupe Viviane / SENC et trois Blue Sports.","Détails","acquisitions.html",["Vérifier titres et signataires","Séparer les deux emprises","Propositions de prix conservées en privé"])}${card("02","Réalisation de la rue","Réseau historique de 854,295 m, environ 400 m existants déclarés.","Détails","routes.html",["Chaussée en gravier envisagée","Sans services municipaux","Projet et métrage à approuver"])}${card("03","Vente des lots","Objectif de 15 ventes à prix cible non validé.","Détails","ventes.html",["Vérifier le petit lot 1 800 348","Puits et septique par lot","Comparer lot par lot ou en bloc"])}</div>`,"alt")
 +section("Risques","Six contrôles avant engagement",`<div class="lined-list">${contrôles.join("")}</div>`)
 +section("Économie du projet","Simulation seulement",`<div class="cards-2"><div class="panel"><h3>Ventes brutes hypothétiques</h3><div class="big-number">${money(15*P.priceDeveloped)}</div><p>15 × prix cible. Ne représente ni un revenu garanti ni la marge après coûts.</p></div><div class="panel"><h3>Prolongement mathématique</h3><div class="big-number">${n(P.theoreticalRemainM,3)} m</div><p>Réseau complet moins chemin existant approximatif : ni levé ni quantité de travaux certifiée.</p></div></div><p class="data-note">Le modèle net exige acquisition, route, études, drainage, taxes, commissions, financement et fiscalité; renseignements détaillés confidentiels.</p>`)
@@ -82,9 +82,9 @@ const metro=`<div class="cards-2"><div class="panel"><h3>Longueurs de rue à ré
 <div class="route-legend"><span>Existants ≈400 m</span><span>Reste théorique ≈454 m</span></div>
 <p class="data-note">Les anciens 452 m (223 + 229) et 478 m demeurent contradictoires. Aucun n'est la longueur certifiée des travaux.</p></div>
 <div class="panel"><h3>Ce que confirme le cadastre graphique</h3>
-<div class="value-line"><span>Rue 1 800 349</span><strong>2 629,5 m²</strong></div>
-<div class="value-line"><span>Rue 4 889 707</span><strong>9 270,2 m²</strong></div>
-<div class="value-line"><span>Total des deux emprises</span><strong>11 899,7 m²</strong></div>
+<div class="value-line"><span>Rue 1 800 349</span><strong>2 629,327 m²</strong></div>
+<div class="value-line"><span>Rue 4 889 707</span><strong>9 269,712 m²</strong></div>
+<div class="value-line"><span>Total des deux emprises</span><strong>11 899,039 m²</strong></div>
 <p class="data-note">Une emprise cadastrale ne permet pas, à elle seule, de calculer la longueur de la chaussée à construire.</p>
 <a class="panel-link" href="routes.html">Dossier d'infrastructure →</a></div></div>`;
 const blockers=section("Risques","Les quatre validations qui bloquent la décision",
@@ -149,7 +149,7 @@ ${info("Contrainte contractuelle","Le projet vise une rue en gravier, sans aspha
 <div class="field"><label for="road-rate">Coût direct illustratif par mètre</label><select id="road-rate"><option value="500">500 $/m · bas</option><option value="800" selected>800 $/m · central</option><option value="1100">1 100 $/m · haut</option></select></div>
 <div class="field"><label for="road-cont">Contingence hypothétique (%)</label><input id="road-cont" type="number" value="15" min="0" max="100" step="1"></div>
 </div><p class="data-note">Ce ne sont pas des soumissions. Le modèle n'inclut ni études, permis, taxes, acquisition de droits, environnement ni mise aux normes de la portion existante.</p></div>
-<div class="cal-result" aria-live="polite"><small>Coût direct estimatif</small><strong id="road-direct">—</strong><small>Avec contingence</small><strong id="road-with-cont">—</strong><small>Budget illustratif seulement — non contractuel</small></div></div>
+<div class="cal-result" aria-live="polite"><small>Coût direct estimatif</small><strong id="road-direct">—</strong><small>Avec contingence</small><strong id="road-with-cont">—</strong><small>Calcul simplifié illustratif — hors budget complet du projet</small></div></div>
 `,"alt")
 +section("Conception","Mandats techniques à faire avant les soumissions",`<div class="lined-list">
 ${line("Arpentage et profil longitudinal","Identifier la chaussée construite, les deux emprises, les pentes, les croisements et les accès.")}
@@ -194,7 +194,7 @@ return hero("Inventaire · 16 lots","Le cadastre vérifié, terrain par terrain"
 "Surfaces graphiques recalculées sur 16 lots résidentiels et deux emprises de rue. Les propriétaires légaux, conditions d'achat et contraintes environnementales de détail sont conservés hors du dépôt public.")
 +section("Superficies","Périmètre résidentiel et affectations de travail",`<div class="cards-4">
 ${metric("Ensemble résidentiel",n(totalArea,1)+" m²",n(sqft(totalArea))+" pi²")}
-${metric("Groupe L.-P.",n(groupCount("lp"))+" lots",n(totalBy("lp"),1)+" m²")}
+${metric("Groupe et personnel déclaré",n(groupCount("lp")+groupCount("personal"))+" lots",n(totalBy("lp")+totalBy("personal"),1)+" m²")}
 ${metric("Autres groupes",n(groupCount("viviane")+groupCount("blue"))+" lots","Groupe Viviane + Blue Sports")}
 ${metric("Lots du projet",n(count)+" lots","7 L.-P. · 6 Viviane · 3 Blue")}
 </div>${info("Précision et limites",H(notePublic))}`)
@@ -214,7 +214,7 @@ function renderLot(){
 const id=new URLSearchParams(location.search).get("id");
 const x=D.lots.find(v=>v.id===id);
 if(!x)return hero("Inventaire","Terrain introuvable","Ce numéro ne correspond à aucun des 16 lots suivis.")+section("Retour","Consulter les terrains",cta("Retour à l'inventaire","terrains.html"));
-const special=x.id==="1800348"?"Une fusion, cession ou autre solution foncière peut être nécessaire compte tenu de sa taille, sans présumer d'une obligation réglementaire.":x.id==="1800388"?"Terrain déjà détenu selon la déclaration du propriétaire du 15 octobre 2026; acte à classer pour confirmer le titulaire légal exact.":x.note;
+const special=x.id==="1800348"?"Une fusion, cession ou autre solution foncière peut être nécessaire compte tenu de sa taille, sans présumer d'une obligation réglementaire.":x.id==="1800388"?"Détention personnelle déclarée par le porteur; acte à classer pour confirmer le titulaire légal exact.":x.note;
 return hero("Fiche de lot","Terrain "+x.label,
 "Caractéristiques géométriques vérifiées sur deux services de diffusion cadastrale. Les superficies légales, le propriétaire actuel et les droits de construction doivent encore être confirmés.")
 +section("Données SIG","Caractéristiques géométriques",`<div class="cards-4">
@@ -311,7 +311,7 @@ const mapMain=()=>`<section class="page-hero"><div class="wrap"><div class="crum
 <section class="section-block"><div class="wrap">
 <div class="cards-2 map-layout">
 <div class="panel"><div id="cadastral-map" role="region" aria-live="polite" aria-label="Carte SIG indicative"><p>Préparation des géométries cadastrales locales…</p></div></div>
-<div class="panel"><h3>Légende</h3><div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#ddae66;border-radius:4px"></span> Groupe L.-P.</span><strong>7 lots</strong></div>
+<div class="panel"><h3>Légende</h3><div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#ddae66;border-radius:4px"></span> Groupe et personnel déclaré</span><strong>7 lots</strong></div>
 <div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#83b5ab;border-radius:4px"></span> Viviane / SENC</span><strong>6 lots</strong></div>
 <div class="value-line"><span><span style="display:inline-block;width:14px;height:14px;background:#8ca9d1;border-radius:4px"></span> Blue Sports</span><strong>3 lots</strong></div>
 
@@ -336,7 +336,7 @@ const bg=document.createElementNS(ns,"rect");for(const [k,v] of Object.entries({
 features.sort((a,b)=>Number(Boolean(D.roads.some(r=>r.label===b.attributes.NO_LOT)))-Number(Boolean(D.roads.some(r=>r.label===a.attributes.NO_LOT))));
 for(const f of features){
  const id=f.attributes.NO_LOT, lot=D.lots.find(l=>l.label===id), road=!lot;
- const groups={lp:"#ddae66",viviane:"#83b5ab",blue:"#8ca9d1",verifier:"#d6aed1"};
+ const groups={personal:"#d6aed1",lp:"#ddae66",viviane:"#83b5ab",blue:"#8ca9d1",verifier:"#d6aed1"};
  const polygon=document.createElementNS(ns,"path");
  const paths=f.geometry.rings.map(r=>"M"+r.map(p=>`${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join("L")+"Z").join(" ");
  polygon.setAttribute("d",paths);polygon.setAttribute("fill",road?"#a7bec8":groups[lot.group]);polygon.setAttribute("stroke","#234457");polygon.setAttribute("stroke-width",road?"2":"1.3");polygon.setAttribute("fill-rule","evenodd");
