@@ -9,9 +9,11 @@ window.DOMAIN_DATA = {
     "targetSales": 15,
     "priceDeveloped": 185000,
     "priceRawPerSqft": 1.5,
-    "totalRoadM": 854.295,
+    "totalRoadM": 854,
+    "historicGISRoadM": 854.295,
     "existingRoadApproxM": 400,
-    "theoreticalRemainM": 454.295,
+    "theoreticalRemainM": 454,
+    "historicGISRemainM": 454.295,
     "historicSegmentsM": 452,
     "historicBudgetM": 478,
     "wetlandsPotentialM2": 8011.9,
@@ -30,7 +32,7 @@ window.DOMAIN_DATA = {
     "municipalNotice": "Avis du 20 février 2026, matricule 8321087597; portée sur emprises à confirmer",
     "precision": "Superficies graphiques recalculées; Infolot, titres fonciers, droits et constructibilité non certifiés",
     "roadStudyUpdated": "2026-10-18",
-    "roadCostStatus": "Bordereau préliminaire établi : 18 postes, 3 scénarios, hypothèses non soumissionnées. Détails confidentiels, accessibles aux prêteurs après accord.",
+    "roadCostStatus": "Étude préliminaire à plusieurs scénarios, hypothèses non soumissionnées. Détails confidentiels, accessibles aux prêteurs après accord.",
     "roadStudyLengthCentralM": 454.295,
     "roadStudyLengthAlternativesM": [
       452,
@@ -40,7 +42,8 @@ window.DOMAIN_DATA = {
     "municipalAcceptance": "Rue gravier et sans réseaux envisagée : portée des autorisations et statut public/privé à confirmer avec Sherbrooke."
   },
   "groups": {
-    "lp": "Groupe L.-P. et sociétés liées",
+    "lp": "Groupe L.-P. et sociétés liées (attribution à vérifier)",
+    "personal": "Détention personnelle déclarée, titre à vérifier",
     "viviane": "Groupe Viviane / Société Villa Deauville",
     "blue": "Blue Sports",
     "verifier": "Attribution à confirmer"
@@ -88,8 +91,8 @@ window.DOMAIN_DATA = {
       "area": 3484.047,
       "perimeter": 243.9,
       "roadContact": 45.7,
-      "group": "lp",
-      "note": "Lot déjà détenu selon déclaration du porteur le 17 octobre 2026; exclu des neuf acquisitions. Acte à classer."
+      "group": "personal",
+      "note": "Détention personnelle déclarée par le porteur; aucune acquisition nouvelle réalisée. Titulaire inscrit et acte à vérifier."
     },
     {
       "id": "1800389",
