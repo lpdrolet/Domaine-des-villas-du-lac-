@@ -3,7 +3,7 @@
 (function(){
 "use strict";
 const CRS="+proj=tmerc +lat_0=0 +lon_0=-70.5 +k=0.9999 +x_0=304800 +y_0=0 +datum=NAD83 +units=m +no_defs";
-const colors={lp:"#cdac71",viviane:"#4b9485",blue:"#6f9ec0",verifier:"#af9dcb",rue:"#b6c6ca"};
+const colors={personal:"#af9dcb",lp:"#cdac71",viviane:"#4b9485",blue:"#6f9ec0",verifier:"#af9dcb",rue:"#b6c6ca"};
 let contexts=new Map();
 const escapeHtml=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const pointToGeo=p=>{

@@ -1,3 +1,4 @@
+import {isAllowedAdmin} from "../../src/server-auth.mjs";
 import {getUser} from "@netlify/identity";
 import {getStore} from "@netlify/blobs";
 
@@ -29,7 +30,8 @@ export default async function handler(req:Request){
  try{
   const user=await getUser();
   if(!user)return unauth();
-  if(!Array.isArray(user.roles)||!user.roles.includes("admin"))return Response.json({error:"Accès interdit : rôle administrateur requis."},{status:403,headers:{"Cache-Control":"no-store"}});
+  if(!isAllowedAdmin(user,Netlify.env.get("ADMIN_ALLOWED_EMAILS")))return Response.json({error:"Accès interdit : rôle administrateur requis."},{status:403,headers:{"Cache-Control":"no-store"}});
+  if(["PUT","DELETE"].includes(req.method)&&req.headers.get("origin")!==new URL(req.url).origin)return Response.json({error:"Origine interdite"},{status:403});
   const store=getStore({name:"domaine-listings",consistency:"strong"});
   if(req.method==="GET"){
    const {blobs}=await store.list({prefix:"lot/"});

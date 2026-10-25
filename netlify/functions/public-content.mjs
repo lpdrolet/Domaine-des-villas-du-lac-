@@ -6,6 +6,7 @@ export default async function handler(req){
  const store=getStore("domaine-public"),lots={};
  for(const id of ids){
  const v=await store.get("lot-"+id,{type:"json"});if(!v)continue;
+ if(v.visible===false){lots[id]={visible:false};continue;}
  const price=Number.isInteger(v.price)&&v.price>=1000&&v.price<=10000000?v.price:null;
  lots[id]={status:["Disponible","Réservé","Vendu","Information sur demande"].includes(v.status)?v.status:"Information sur demande",subtitle:String(v.subtitle||"").slice(0,300),price,photoUrl:typeof v.photoUrl==="string"&&/^https:\/\//.test(v.photoUrl)?v.photoUrl:"",documentUrl:typeof v.documentUrl==="string"&&/^https:\/\//.test(v.documentUrl)?v.documentUrl:"",visible:v.visible!==false};
  }
