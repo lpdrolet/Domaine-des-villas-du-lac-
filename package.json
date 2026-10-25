@@ -4,8 +4,8 @@
   "version": "2.1.0",
   "type": "module",
   "scripts": {
-    "build": "node scripts/build-premium.mjs",
-    "test": "node scripts/qa.mjs"
+    "build": "node scripts/build-premium.mjs && node scripts/qa-dist.mjs",
+    "test": "node scripts/qa.mjs && node --test scripts/regressions.mjs"
   },
   "dependencies": {
     "@netlify/blobs": "latest",
