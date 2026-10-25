@@ -13,7 +13,7 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https://tile.openstreetmap.org https://server.arcgisonline.com https://*.tile.openstreetmap.org https://unpkg.com; connect-src 'self'; font-src 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https:; connect-src 'self'; font-src 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests"
     Cross-Origin-Opener-Policy = "same-origin-allow-popups"
 
 [[headers]]
@@ -30,4 +30,10 @@
 [[headers]]
   for = "/__forms.html"
   [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/client.html"
+  [headers.values]
+    Cache-Control = "no-store"
     X-Robots-Tag = "noindex, nofollow"
