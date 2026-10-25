@@ -22,7 +22,8 @@ Le portail commun est dans `assets/portal.js`, la présentation dans `assets/por
 | Lot de rue 1 800 349 | 2 629,327 m² | Mesure SIG |
 | Lot de rue 4 889 707 | 9 269,712 m² | Mesure SIG |
 | Superficie des deux rues | 11 899,039 m² | Mesure SIG |
-| Réseau historique complet | 854,295 m | Tracé SIG ancien |
+| Projet complet déclaré | 854 m | Inclut les env. 400 m existants |
+| Tracé SIG historique | 854,295 m | Référence historique, non métrage de travaux |
 | Rue déjà construite | env. 400 m | Déclaration à arpenter |
 | Reste théorique | env. 454 m | Calcul, non métrage de travaux |
 | Ancienne mesure A + B | 452 m | 223 + 229 m |
@@ -35,7 +36,7 @@ La version primaire du service cadastral est datée du **9 août 2026**; le 15 o
 
 La couche provinciale de milieux humides **potentiels** recoupe 9 lots sur environ 8 011,9 m². Il ne s'agit pas d'une aire réglementaire réputée inconstructible. Ne pas publier la superposition lot par lot sans évaluer le contexte.
 
-L'ancien rôle a très probablement regroupé les lots 1 800 348 et 1 800 389 sous une même unité; leurs superficies géométriques individuelles sont respectivement 1 571,9 m² et 3 484,2 m². L'ancien rôle a aussi regroupé les deux emprises de rue. Le lot 1 800 374 n'est pas retrouvé dans la couche cadastrale actuelle. Le lot 1 800 388 est déclaré déjà détenu par le porteur du projet (15 octobre 2026); acte de propriété à conserver au dossier pour confirmer le titulaire légal exact.
+L'ancien rôle a très probablement regroupé les lots 1 800 348 et 1 800 389 sous une même unité; leurs superficies géométriques individuelles sont respectivement 1 571,9 m² et 3 484,2 m². L'ancien rôle a aussi regroupé les deux emprises de rue. Le lot 1 800 374 n'est pas retrouvé dans la couche cadastrale actuelle. Le lot 1 800 388 est déclaré détenu personnellement par le porteur du projet (15 octobre 2026); acte de propriété à conserver au dossier pour confirmer le titulaire légal exact.
 
 ## Niveau de confidentialité
 
@@ -58,7 +59,7 @@ Le site doit être traité comme un outil de présentation et de pilotage public
 
 ## Exploitation du site
 
-Site statique sans compilation et sans dépendances externes. Toutes les pages doivent charger `assets/data.js`, puis `assets/portal.js` et `assets/portal.css`. Les pages sont directement accessibles depuis leur fichier HTML.
+Le site se construit avec `npm ci` puis `npm run build`; Netlify publie `dist`. Les pages actuelles chargent `assets/data.js`, `assets/estate.js` et `assets/estate.css`. Les espaces client et administrateur utilisent des bundles compilés et des fonctions Netlify. Les pages historiques de revue et de sources utilisent encore `assets/portal.js`.
 
 Le dépôt est compatible avec un hébergement statique. Les changements sur GitHub ne prouvent **pas** que le déploiement actuel Netlify a été actualisé. Contrôler la version publiée, le statut de l'accès par SSO et la branche de déploiement. Ne pas désactiver les contrôles d'accès pour faciliter le déploiement sans accord explicite.
 
@@ -73,8 +74,8 @@ Le dépôt est compatible avec un hébergement statique. Les changements sur Git
 
 ## Contrôle qualité automatisé
 
-Le workflow `.github/workflows/verify.yml` s'exécute à chaque push sur `main` et sur les demandes de fusion. Son script `scripts/qa.mjs` vérifie les neuf pages, les liens vers les ressources, la syntaxe JS, les 16 lots, les 2 emprises, les 14 tâches, les contours SIG locaux, les filtres et les calculatrices. **Un contrôle de code réussi n'atteste pas que Netlify a publié le commit.**
+Le workflow `.github/workflows/verify.yml` s'exécute à chaque push sur `main` et sur les demandes de fusion. `npm test` vérifie les données cadastrales, les pages, la syntaxe JS et les régressions de formulaire, de visibilité et d’autorisation. `npm run build` vérifie aussi les liens et ressources locaux des 36 pages générées. **Un contrôle de code réussi n'atteste pas que Netlify a publié le commit.**
 
 ## Rectification propriétaire — 15 octobre 2026
 
-Selon confirmation du porteur du projet, le lot **1 800 388 appartient déjà à son groupe**. Répartition de travail : **7 terrains groupe Louis-Philippe / sociétés associées, 6 Viviane / Société Villa Deauville, 3 Blue Sports = 16 terrains résidentiels**. Les deux emprises routières sont exclues. Le modèle conserve **15 ventes prévues sur 16 terrains** à titre d'hypothèse, compte tenu notamment du sort du lot 1 800 348. La déclaration de détention est distincte de la vérification du titulaire légal inscrit.
+Selon confirmation du porteur du projet, le lot **1 800 388 relève de sa détention personnelle déclarée**. Répartition de travail : **6 attributions de travail au groupe Louis-Philippe / sociétés associées (titres à vérifier), 1 terrain personnel déclaré (388), 6 Viviane / Société Villa Deauville, 3 Blue Sports = 16 terrains résidentiels**. Les deux emprises routières sont exclues. Le modèle conserve **15 ventes prévues sur 16 terrains** à titre d'hypothèse, compte tenu notamment du sort du lot 1 800 348. La déclaration de détention est distincte de la vérification du titulaire légal inscrit.
